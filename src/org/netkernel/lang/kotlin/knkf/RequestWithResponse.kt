@@ -10,13 +10,23 @@ abstract class Request(protected val requestContext: RequestContext, uri: String
     }
 }
 
+fun identifier(identifier: String): Identifier {
+    return Identifier(identifier)
+}
+
+data class Identifier(val identifier: String)
+
 abstract class RequestWithResponse<T>(requestContext: RequestContext, representationClass: Class<T>, uri: String, verb: Verb): Request(requestContext, uri, verb) {
     init {
         rawRequest.setRepresentationClass(representationClass)
     }
 
-    fun argument(paramName: String, paramValue: String) {
+    fun argument(paramName: String, paramValue: Any) {
         rawRequest.addArgumentByValue(paramName, paramValue)
+    }
+
+    fun argument(paramName: String, paramIdentifier: Identifier) {
+        rawRequest.addArgument(paramName, paramIdentifier.identifier)
     }
 
     fun argument(paramName: String, paramRequest: () -> SourceRequest<*>) {

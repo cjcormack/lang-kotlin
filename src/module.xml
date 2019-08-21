@@ -13,8 +13,9 @@
 	<system>
 		<classloader>
 			<exports>
-		        <match>jet\..*</match>
-		        <match>kotlin\..*</match>
+				<match>jet\..*</match>
+				<match>kotlin\..*</match>
+				<match>org\.netkernel\.lang\.kotlin\.knkf\..*</match>
 			</exports>
 		</classloader>
 		<dynamic/>

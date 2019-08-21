@@ -2,7 +2,7 @@ package org.netkernel.lang.kotlin.knkf
 
 import org.netkernel.layer0.nkf.INKFRequestContext
 
-abstract class RequestContext(val context: INKFRequestContext) {
+open class RequestContext(val context: INKFRequestContext) {
 
     inline fun <reified T> issue(request: () -> RequestWithResponse<T>): T {
         val response = context.issueRequest(request().rawRequest)
@@ -24,12 +24,12 @@ abstract class RequestContext(val context: INKFRequestContext) {
         context.issueRequest(request.rawRequest)
     }
 
-    fun response(response: Any) {
-        context.createResponseFrom(response)
+    fun response(response: Any): Response {
+        return Response(context.createResponseFrom(response))
     }
 
-    fun response(response: () -> Any) {
-        context.createResponseFrom(response())
+    fun response(response: () -> Any): Response {
+        return Response(context.createResponseFrom(response()))
     }
 
     inline fun <reified T> sourceRequest(
@@ -130,11 +130,19 @@ abstract class RequestContext(val context: INKFRequestContext) {
         return issue(deleteRequest(uri, init))
     }
 
+    fun <T> transrept(value: Any, type: Class<T>): T {
+        return context.transrept(value, type)
+    }
+
     inline fun <reified T> transrept(value: Any): T {
         return context.transrept(value, T::class.java)
     }
 
     inline fun <reified T> transrept(value: () -> Any): T {
         return context.transrept(value(), T::class.java)
+    }
+
+    inline fun <reified T> sourcePrimary(): T {
+        return context.sourcePrimary(T::class.java)
     }
 }

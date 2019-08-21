@@ -3,6 +3,8 @@ apply plugin: 'netkernel'
 apply plugin: 'eclipse'
 apply plugin: 'kotlin'
 
+def nk_path=project.properties['nk_path'] ?: "../NKSE-5.2.1/"
+
 //Provide this buildscript with repositories and dependencies to obtain the netkernel plugin
 buildscript {
     ext.kotlin_version = '1.3.30'
@@ -47,7 +49,7 @@ netkernel {
     	NK
         {
             edition = "SE"
-            location = "../NKSE-5.2.1/"		//Specifies a copy of NetKernel to be located relative to this project
+            location = "$nk_path"		//Specifies a copy of NetKernel to be located relative to this project
             
             								//If you already have NK installed change "location" to the directory
             								//where you installed it (keep the trailing slash)
@@ -66,8 +68,19 @@ netkernel {
     
 }
 
+//sourceSets {
+//    main {
+//        java {
+//            srcDir 'src'
+//            exclude "**/*.kts"
+//        }
+//    }
+//}
+
 sourceSets["main"].java.srcDirs("src")
+sourceSets["main"].java.exclude("**/*.kts")
 sourceSets["main"].kotlin.srcDirs("src")
+sourceSets["main"].kotlin.exclude("**/*.kts")
 
 //Additional Compile Dependencies
 dependencies {
