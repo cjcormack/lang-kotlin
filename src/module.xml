@@ -44,5 +44,10 @@
 		<representation>
 			<class>org.netkernel.lang.kotlin.ScriptRepresentation</class>
 		</representation>
+
+		<import>
+			<uri>urn:org:netkernel:mod:hds</uri>
+			<private/>
+		</import>
 	</rootspace>
 </module>
