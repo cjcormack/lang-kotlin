@@ -38,7 +38,7 @@ class Hds(): HdsNode(HDSFactory.newDocument()) {
 }
 
 class HdsElement(builder: IHDSMutator): HdsNode(builder) {
-    fun arg(name: String, value: String) {
+    fun attr(name: String, value: String) {
         builder.addNode("@$name", value)
     }
 }
