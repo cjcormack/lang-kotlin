@@ -28,9 +28,6 @@ class Request(builder: IHDSMutator): BuilderNode(builder, "request") {
     fun argument(name: String, identifier: String? = null, method: ArgumentMethod? = null, tolerant: Boolean? = null, init: (Argument.() -> Unit)? = null) = initNode(Argument(builder)) {
         builder.addNode("@name", name)
 
-        if (identifier != null) {
-            builder.addNode("@identifier", identifier)
-        }
         if (method != null) {
             builder.addNode("@method", method.value)
         }

@@ -5,7 +5,23 @@ import org.netkernel.lang.kotlin.dsl.initNode
 import org.netkernel.mod.hds.IHDSMutator
 
 abstract class BaseStandardGrammarNode(builder: IHDSMutator, hdsName: String): BuilderNode(builder, hdsName) {
-    fun group(init: (StandardGrammarGroup.() -> Unit)) = initNode(StandardGrammarGroup(builder)) {
+    fun group(name: String? = null, min: Int? = null, max: Int? = null, encoding: Group.Encoding? = null, init: (Group.() -> Unit)) = initNode(Group(builder)) {
+        if (name != null) {
+            builder.addNode("@name", name)
+        }
+
+        if (min != null) {
+            builder.addNode("@min", min)
+        }
+
+        if (max != null) {
+            builder.addNode("@max", max)
+        }
+
+        if (encoding != null) {
+            builder.addNode("@encoding", encoding.value)
+        }
+
         init()
     }
 
@@ -33,19 +49,7 @@ enum class RegexType(val value: String) {
 
 class StandardGrammar(builder: IHDSMutator): BaseStandardGrammarNode(builder, "grammar")
 
-class StandardGrammarGroup(builder: IHDSMutator): BaseStandardGrammarNode(builder, "group") {
-    fun name(name: String) {
-        builder.addNode("@name", name)
-    }
-
-    fun min(min: Int) {
-        builder.addNode("@min", min)
-    }
-
-    fun max(max: Int) {
-        builder.addNode("@max", max)
-    }
-
+class Group(builder: IHDSMutator): BaseStandardGrammarNode(builder, "group") {
     fun encoding(encoding: Encoding) {
         builder.addNode("@encoding", encoding.value)
     }
