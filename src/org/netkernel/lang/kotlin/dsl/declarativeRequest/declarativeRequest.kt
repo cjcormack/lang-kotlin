@@ -25,19 +25,26 @@ class Request(builder: IHDSMutator): BuilderNode(builder, "request") {
         builder.addNode("representation", representationClassName)
     }
 
-    fun argument(name: String, identifier: String, init: (RequestArgument.() -> Unit)? = null) = initNode(RequestArgument(builder)) {
+    fun argument(name: String, identifier: String? = null, method: ArgumentMethod? = null, tolerant: Boolean? = null, init: (Argument.() -> Unit)? = null) = initNode(Argument(builder)) {
         builder.addNode("@name", name)
+
+        if (identifier != null) {
+            builder.addNode("@identifier", identifier)
+        }
+        if (method != null) {
+            builder.addNode("@method", method.value)
+        }
+        if (tolerant != null) {
+            builder.addNode("@tolerant", tolerant)
+        }
 
         if (init != null) {
             init()
         }
 
-        builder.setValue(identifier)
-    }
-
-    fun argument(name: String, init: RequestArgument.() -> Unit) = initNode(RequestArgument(builder)) {
-        builder.addNode("@name", name)
-        init()
+        if (identifier != null) {
+            builder.setValue(identifier)
+        }
     }
 
     fun varargs() {
@@ -45,7 +52,7 @@ class Request(builder: IHDSMutator): BuilderNode(builder, "request") {
         builder.popNode()
     }
 
-    fun header(name: String, init: RequestHeader.() -> Unit) = initNode(RequestHeader(builder)) {
+    fun header(name: String, init: Header.() -> Unit) = initNode(Header(builder)) {
         builder.addNode("@name", name)
 
         init()
@@ -58,6 +65,13 @@ class Request(builder: IHDSMutator): BuilderNode(builder, "request") {
 
         builder.setValue(value)
     }
+}
+
+enum class ArgumentMethod(val value: String) {
+    VALUE("value"),
+    DATA_URI("data-uri"),
+    AS_STRING("as-string"),
+    FROM_STRING("from-string")
 }
 
 abstract class LiteralBuilder(builder: IHDSMutator, hdsName: String): BuilderNode(builder, hdsName) {
@@ -99,35 +113,16 @@ abstract class LiteralBuilder(builder: IHDSMutator, hdsName: String): BuilderNod
     }
 }
 
-class RequestArgument(builder: IHDSMutator): LiteralBuilder(builder, "argument") {
-    fun identifier(identifier: String) {
-        builder.setValue(identifier)
-    }
-
-    fun method(method: Method) {
-        builder.addNode("@method", method.value)
-    }
-
-    fun tolerant(tolerant: Boolean) {
-        builder.addNode("@tolerant", tolerant)
-    }
-
+class Argument(builder: IHDSMutator): LiteralBuilder(builder, "argument") {
     fun request(identifier: String, init: Request.() -> Unit) = initNode(Request(builder)) {
         builder.addNode("identifier", identifier)
         init()
-    }
-
-    enum class Method(val value: String) {
-        VALUE("value"),
-        DATA_URI("data-uri"),
-        AS_STRING("as-string"),
-        FROM_STRING("from-string")
     }
 }
 
 class LiteralConstructorArguments(builder: IHDSMutator): LiteralBuilder(builder, "literal")
 
-class RequestHeader(builder: IHDSMutator): LiteralBuilder(builder, "header") {
+class Header(builder: IHDSMutator): LiteralBuilder(builder, "header") {
     fun sticky(sticky: Boolean) {
         builder.addNode("@sticky", sticky)
     }

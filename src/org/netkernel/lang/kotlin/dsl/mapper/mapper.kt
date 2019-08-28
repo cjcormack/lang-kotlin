@@ -18,6 +18,10 @@ fun mapper(init: MapperConfig.() -> Unit): IHDSDocument {
 }
 
 class MapperConfig(): BuilderNode(HDSFactory.newDocument(), "config") {
+    fun import(uri: String) {
+        builder.addNode("import", uri)
+    }
+
     fun endpoint(init: Endpoint.() -> Unit) = initNode(Endpoint(builder), init)
 
     fun meta(init: Meta.() -> Unit) = initNode(Meta(builder), init)
@@ -43,9 +47,11 @@ class Endpoint(builder: IHDSMutator): BuilderNode(builder, "endpoint") {
 
     fun standardGrammar(init: StandardGrammar.() -> Unit) = initNode(StandardGrammar(builder), init)
 
-    fun request(identifier: String, init: Request.() -> Unit) = initNode(Request(builder)) {
+    fun request(identifier: String, init: (Request.() -> Unit)? = null) = initNode(Request(builder)) {
         builder.addNode("identifier", identifier)
-        init()
+        if (init != null) {
+            init()
+        }
     }
 
     fun meta(init: Meta.() -> Unit) = initNode(Meta(builder), init)
