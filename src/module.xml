@@ -16,6 +16,7 @@
 				<match>jet\..*</match>
 				<match>kotlin\..*</match>
 				<match>org\.netkernel\.lang\.kotlin\.knkf\..*</match>
+				<match>org\.netkernel\.lang\.kotlin\.dsl\..*</match>
 			</exports>
 		</classloader>
 		<dynamic/>
