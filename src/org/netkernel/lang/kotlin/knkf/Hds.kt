@@ -9,7 +9,7 @@ annotation class HdsMarker
 
 @HdsMarker
 abstract class HdsNode(internal val builder: IHDSMutator) {
-    fun el(name: String, init: HdsElement.() -> Any): HdsElement {
+    fun node(name: String, init: HdsElement.() -> Any): HdsElement {
         val element = HdsElement(builder)
 
         this.builder.pushNode(name)
@@ -24,7 +24,7 @@ abstract class HdsNode(internal val builder: IHDSMutator) {
         return element
     }
 
-    fun el(name: String, value: Any): HdsElement {
+    fun node(name: String, value: Any): HdsElement {
         builder.addNode(name, value)
 
         return HdsElement(builder)
@@ -37,11 +37,7 @@ class Hds(): HdsNode(HDSFactory.newDocument()) {
     }
 }
 
-class HdsElement(builder: IHDSMutator): HdsNode(builder) {
-    fun attr(name: String, value: String) {
-        builder.addNode("@$name", value)
-    }
-}
+class HdsElement(builder: IHDSMutator): HdsNode(builder)
 
 fun hds(init: Hds.() -> Unit): Hds {
     val hds = Hds()
