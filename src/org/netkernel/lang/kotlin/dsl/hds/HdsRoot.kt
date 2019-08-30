@@ -7,7 +7,7 @@ import org.netkernel.mod.hds.IHDSDocument
 import org.netkernel.mod.hds.IHDSMutator
 
 abstract class HdsNode(builder: IHDSMutator, hdsName: String): BuilderNode(builder, hdsName) {
-    fun el(name: String, init: HdsElement.() -> Any) = initNode(HdsElement(builder, name)) {
+    fun node(name: String, init: HdsElement.() -> Any) = initNode(HdsElement(builder, name)) {
         val res = init()
 
         if (res !is BuilderNode) {
@@ -15,7 +15,7 @@ abstract class HdsNode(builder: IHDSMutator, hdsName: String): BuilderNode(build
         }
     }
 
-    fun el(name: String, value: Any): HdsElement {
+    fun node(name: String, value: Any): HdsElement {
         builder.addNode(name, value)
 
         return HdsElement(builder, name)
@@ -24,11 +24,7 @@ abstract class HdsNode(builder: IHDSMutator, hdsName: String): BuilderNode(build
 
 class HdsRoot(): HdsNode(HDSFactory.newDocument(), "")
 
-class HdsElement(builder: IHDSMutator, hdsName: String): HdsNode(builder, hdsName) {
-    fun attr(name: String, value: String) {
-        builder.addNode("@$name", value)
-    }
-}
+class HdsElement(builder: IHDSMutator, hdsName: String): HdsNode(builder, hdsName) {}
 
 fun hds(init: HdsRoot.() -> Unit): IHDSDocument {
     val hds = HdsRoot()
