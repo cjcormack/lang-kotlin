@@ -7,5 +7,13 @@ enum class Verb(val nkfVerb: Int) {
     SINK(INKFRequestReadOnly.VERB_SINK),
     EXISTS(INKFRequestReadOnly.VERB_EXISTS),
     DELETE(INKFRequestReadOnly.VERB_DELETE),
-    NEW(INKFRequestReadOnly.VERB_NEW)
+    NEW(INKFRequestReadOnly.VERB_NEW);
+
+    companion object {
+        private val nkfValuesMap = Verb.values().map { it.nkfVerb to it }.toMap()
+
+        fun fromNkf(nkfVerb: Int): Verb {
+            return checkNotNull(nkfValuesMap[nkfVerb])
+        }
+    }
 }
