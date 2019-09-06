@@ -17,6 +17,7 @@
 				<match>kotlin\..*</match>
 				<match>org\.netkernel\.lang\.kotlin\.knkf\..*</match>
 				<match>org\.netkernel\.lang\.kotlin\.dsl\..*</match>
+				<match>org\.netkernel\.lang\.kotlin\.util\..*</match>
 			</exports>
 		</classloader>
 		<dynamic/>
