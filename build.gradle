@@ -1,81 +1,57 @@
-//Apply the NetKernel plugin
-apply plugin: 'netkernel'
-apply plugin: 'eclipse'
-apply plugin: 'kotlin'
-
-def nk_path=project.properties['nk_path'] ?: "../NKSE-5.2.1/"
-
-//Provide this buildscript with repositories and dependencies to obtain the netkernel plugin
 buildscript {
-    ext.kotlin_version = '1.3.30'
+    ext {
+        versions = [
+                "kotlin": '1.3.41'
+        ]
+    }
+
     repositories {
         mavenLocal()
         mavenCentral()
+        gradlePluginPortal()
         maven {
             url "http://maven.netkernel.org/netkernel-maven"
         }
     }
 
-	dependencies {
-    	classpath group: 'urn.org.netkernel', name: 'gradle.plugin', version: '[1.1.4,)'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.30"
-	}
+    dependencies {
+        classpath group: 'urn.org.netkernel', name: 'gradle.plugin', version: '[1.1.4,)'
+    }
 }
+
+plugins {
+    id 'idea'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.41'
+}
+
+apply plugin: 'netkernel'
+
+def nk_path=project.properties['nk_path'] ?: "../NKSE-5.2.1/"
 
 netkernel {
-	///////////////////
-	//Configuration for the netkernel plugin tasks goes here...
-	///////////////////
-	
-	//Add the Maven Central respository for compile time dependency resolution
     useMavenCentral()
-
-    //Add the NetKernel maven respository for compile time dependency resolution of core NetKernel libraries
     useMavenNK()
 
-	//Add the core NetKernel libraries as compile time dependencies
-    useStandardCompileDependencies()
-    
-    //If you've not got a copy of NetKernel specify the edition and optionally (for EE) add your portal credentials..
-    download {
-        edition = "SE"  //or SE
-        username = "foo"
-        password = "baa"
-    }
-        
-    //Specify our NetKernel instance(s) for installation, module deployment and management tasks etc
     instances {
-    	
-    	NK
-        {
+        NK {
             edition = "SE"
-            location = "$nk_path"		//Specifies a copy of NetKernel to be located relative to this project
-            
-            								//If you already have NK installed change "location" to the directory
-            								//where you installed it (keep the trailing slash)
+            location = nk_path
         }
-        
-        /**
-        If you want/have Enterprise Edition then set edition to "EE" like this 
-        NK
-        {
-            edition = "EE"
-            location = "../NKEE-5.2.1/"
-        }
-        **/
     }
-    
-    
 }
 
-//sourceSets {
-//    main {
-//        java {
-//            srcDir 'src'
-//            exclude "**/*.kts"
-//        }
-//    }
-//}
+compileKotlin {
+    kotlinOptions{
+        jvmTarget = "1.8"
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
+    }
+}
 
 sourceSets["main"].java.srcDirs("src")
 sourceSets["main"].java.exclude("**/*.kts")
@@ -84,10 +60,10 @@ sourceSets["main"].kotlin.exclude("**/*.kts")
 
 //Additional Compile Dependencies
 dependencies {
-  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  compile "org.jetbrains.kotlin:kotlin-compiler:$kotlin_version"
-  compile "org.jetbrains.kotlin:kotlin-script-util:$kotlin_version"
-  compile "org.jetbrains.kotlin:kotlin-scripting-jvm-host:$kotlin_version"
+  compile "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
+  compile "org.jetbrains.kotlin:kotlin-compiler:${versions.kotlin}"
+  compile "org.jetbrains.kotlin:kotlin-script-util:${versions.kotlin}"
+  compile "org.jetbrains.kotlin:kotlin-scripting-jvm-host:${versions.kotlin}"
 
   compile group: 'urn.org.netkernel', name: 'mod.hds', version: '[1.5.1,)'
 }

@@ -15,20 +15,13 @@
 			<exports>
 				<match>jet\..*</match>
 				<match>kotlin\..*</match>
-				<match>org\.netkernel\.lang\.kotlin\.knkf\..*</match>
-				<match>org\.netkernel\.lang\.kotlin\.dsl\..*</match>
-				<match>org\.netkernel\.lang\.kotlin\.util\..*</match>
+				<match>org\.netkernel\.lang\.kotlin\..*</match>
 			</exports>
 		</classloader>
 		<dynamic/>
 	</system>
 
 	<rootspace>
-		<accessor>
-			<id>kotlin:test</id>
-			<grammar>res:/test/kotlin</grammar>
-			<class>org.netkernel.lang.kotlin.test.TestAccessor</class>
-		</accessor>
 		<accessor>
 			<id>kotlin:runtime</id>
 			<grammar>
@@ -38,13 +31,13 @@
 					<varargs/>
 				</active>
 			</grammar>
-			<class>org.netkernel.lang.kotlin.ScriptRuntimeAccessor</class>
+			<class>org.netkernel.lang.kotlin.script.ScriptRuntimeAccessor</class>
 		</accessor>
 		<transreptor>
-			<class>org.netkernel.lang.kotlin.ScriptTransreptor</class>
+			<class>org.netkernel.lang.kotlin.script.ScriptTransreptor</class>
 		</transreptor>
 		<representation>
-			<class>org.netkernel.lang.kotlin.ScriptRepresentation</class>
+			<class>org.netkernel.lang.kotlin.script.ScriptRepresentation</class>
 		</representation>
 
 		<import>

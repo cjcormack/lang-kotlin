@@ -1,4 +1,4 @@
-package org.netkernel.lang.kotlin
+package org.netkernel.lang.kotlin.script
 
 import org.netkernel.layer0.nkf.INKFRequestContext
 import org.netkernel.layer0.util.DynamicURLClassLoader
