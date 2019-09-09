@@ -1,5 +1,6 @@
-package org.netkernel.lang.kotlin.knkf.overlays
+package org.netkernel.lang.kotlin.knkf
 
+import org.netkernel.lang.kotlin.knkf.context.TransparentOverlayRequestContext
 import org.netkernel.layer0.nkf.INKFRequestContext
 import org.netkernel.module.standard.endpoint.TransparentOverlayImpl
 
@@ -8,8 +9,8 @@ abstract class KotlinTransparentOverlay: TransparentOverlayImpl() {
         checkNotNull(identifier)
         checkNotNull(context)
 
-        TransparentOverlayContext(context).onRequest(identifier)
+        TransparentOverlayRequestContext(context).onRequest(identifier)
     }
 
-    abstract fun TransparentOverlayContext.onRequest(elementId: String)
+    abstract fun TransparentOverlayRequestContext.onRequest(elementId: String)
 }

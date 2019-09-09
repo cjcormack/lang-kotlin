@@ -1,13 +1,14 @@
 package org.netkernel.lang.kotlin.util
 
-import org.netkernel.lang.kotlin.knkf.BaseRequestContext
+import org.netkernel.lang.kotlin.knkf.context.RequestContext
+import org.netkernel.lang.kotlin.knkf.context.request.transrept
 import org.netkernel.mod.hds.IHDSReader
 
-inline fun <reified T> IHDSReader.firstValue(path: String, context: BaseRequestContext<*>? = null, default: T? = null): T {
+inline fun <reified T> IHDSReader.firstValue(path: String, context: RequestContext? = null, default: T? = null): T {
     return firstValue(T::class.java, path, context, default)
 }
 
-fun <T> IHDSReader.firstValue(type: Class<T>, path: String, context: BaseRequestContext<*>? = null, default: T? = null): T {
+fun <T> IHDSReader.firstValue(type: Class<T>, path: String, context: RequestContext? = null, default: T? = null): T {
     val value = getFirstValueOrNull(path)
 
     if (type.isInstance(value)) {
@@ -27,14 +28,14 @@ fun <T> IHDSReader.firstValue(type: Class<T>, path: String, context: BaseRequest
         throw Exception("Value is wrong type, and no context supplied for transreption (expected a ${type}, got a ${value.javaClass})")
     }
 
-    return context.context.transrept(value, type)
+    return context.transrept(value, type)
 }
 
-inline fun <reified T> IHDSReader.values(path: String, context: BaseRequestContext<*>? = null): List<T> {
+inline fun <reified T> IHDSReader.values(path: String, context: RequestContext? = null): List<T> {
     return values(T::class.java, path, context)
 }
 
-fun <T> IHDSReader.values(type: Class<T>, path: String, context: BaseRequestContext<*>? = null): List<T> {
+fun <T> IHDSReader.values(type: Class<T>, path: String, context: RequestContext? = null): List<T> {
     val values = getValues(path)
 
     return values.map { value ->
@@ -46,7 +47,7 @@ fun <T> IHDSReader.values(type: Class<T>, path: String, context: BaseRequestCont
                 throw Exception("Value is wrong type, and no context supplied for transreption (expected a ${type}, got a ${value.javaClass})")
             }
 
-            context.context.transrept(value, type)
+            context.transrept(value, type)
         }
     }
 }

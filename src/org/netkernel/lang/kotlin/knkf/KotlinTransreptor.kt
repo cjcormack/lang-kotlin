@@ -1,5 +1,6 @@
 package org.netkernel.lang.kotlin.knkf
 
+import org.netkernel.lang.kotlin.knkf.context.TransreptorRequestContext
 import org.netkernel.layer0.nkf.INKFRequestContext
 import org.netkernel.module.standard.endpoint.StandardTransreptorImpl
 

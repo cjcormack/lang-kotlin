@@ -1,16 +1,17 @@
 package org.netkernel.lang.kotlin
 
-import org.netkernel.lang.kotlin.knkf.RequestContext
+import org.netkernel.lang.kotlin.knkf.context.RequestContextWithPrimary
+import org.netkernel.lang.kotlin.knkf.context.RequestContextWithResponse
 import org.netkernel.layer0.nkf.INKFRequest
 import org.netkernel.layer0.nkf.INKFRequestContext
 import kotlin.script.experimental.annotations.KotlinScript
 import kotlin.script.experimental.api.*
 
 @KotlinScript(fileExtension = "nk.kts", displayName = "NetKernel Kotlin Script", compilationConfiguration = NetKernelScriptConfiguration::class)
-abstract class NetKernelKotlinScript(context: INKFRequestContext): RequestContext(context)
+abstract class NetKernelKotlinScript(nkfContext: INKFRequestContext): RequestContextWithResponse<Any>(nkfContext), RequestContextWithPrimary
 
 class Request<T>(context: NetKernelKotlinScript, representationClass: Class<T>, uri: String) {
-    val rawRequest: INKFRequest = context.context.createRequest(uri)
+    val rawRequest: INKFRequest = context.nkfContext.createRequest(uri)
 
     init {
         rawRequest.setRepresentationClass(representationClass)
