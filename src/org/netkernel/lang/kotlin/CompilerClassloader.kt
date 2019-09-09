@@ -4,7 +4,6 @@ import org.netkernel.layer0.nkf.INKFRequestContext
 import org.netkernel.layer0.util.DynamicURLClassLoader
 import org.netkernel.layer0.util.SpaceClassLoader
 import java.io.File
-import java.lang.Exception
 import java.net.URI
 import java.net.URL
 import java.net.URLClassLoader
