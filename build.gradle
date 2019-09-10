@@ -53,11 +53,6 @@ compileTestKotlin {
     }
 }
 
-sourceSets["main"].java.srcDirs("src")
-sourceSets["main"].java.exclude("**/*.kts")
-sourceSets["main"].kotlin.srcDirs("src")
-sourceSets["main"].kotlin.exclude("**/*.kts")
-
 //Additional Compile Dependencies
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
