@@ -60,5 +60,13 @@ dependencies {
   compile "org.jetbrains.kotlin:kotlin-script-util:${versions.kotlin}"
   compile "org.jetbrains.kotlin:kotlin-scripting-jvm-host:${versions.kotlin}"
 
-  compile group: 'urn.org.netkernel', name: 'mod.hds', version: '[1.5.1,)'
+  compileOnly group: 'urn.org.netkernel', name: 'mod.hds', version: '[1.5.1,)'
 }
+
+
+task copyToLib(type: Copy) {
+    into "$buildDir/${netkernel.module.name}/lib"
+    from configurations.runtime {}
+}
+
+jar.dependsOn(copyToLib, dokka)
