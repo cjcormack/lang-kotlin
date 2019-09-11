@@ -19,9 +19,15 @@
 *.tar.gz
 *.rar
 
+# except everything that is in NK4-Ant-Suite-0_3
+!/apposite-builder/NK4-Ant-Suite-0_3/*.jar
+!/apposite-builder/NK4-Ant-Suite-0_3/lib/*.jar
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /.gradle/
 /.idea/
 /build/
 /lang-kotlin.iml
+/apposite-builder/build.properties
+/apposite-builder/build/

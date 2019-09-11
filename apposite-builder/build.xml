@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="NK4-Repository-Server" default="package">
+	<property file="build.properties"/>
+
+	<property name="package.version" value="1.1.1"/>
+	<property name="package.name" value="lang-kotlin" />
+	<property name="package.description" value="Lang / Kotlin" />
+	<property name="push.repository" value="nknew"/>
+
+	<property name="module.name" value="urn.org.netkernel.lang.kotlin" />
+
+	<property name="gradle.built.dir" location="../build/${module.name}-1.0.0" />
+	<property name="build.dir" location="build" />
+	<property name="build.copy.dir" location="${build.dir}/${module.name}" />
+	<property name="build.jar.dir" location="${build.dir}/jar" />
+	<property name="build.package.file" location="${build.dir}/lang-kotlin-${package.version}.nkp.jar" />
+
+	<property name="nk4-ant-suite" location="NK4-Ant-Suite-0_3"/>
+
+	<include file="${nk4-ant-suite}/build-common.xml"/>
+
+	<path id="nk4.anttools.path">
+		<fileset dir="${nk4-ant-suite}">
+			<include name="*.jar"/>
+			<include name="lib/*.jar"/>
+		</fileset>
+	</path>
+
+	<taskdef name="nkpackage"
+	         classpathref="nk4.anttools.path"
+	         classname="org.netkernelroc.antTools.packager.NetKernelPackageTask"/>
+
+	<taskdef name="nkmodule"
+	         classpathref="nk4.anttools.path"
+	         classname="org.netkernelroc.antTools.packager.NetKernelModuleTask"/>
+
+	<target name="clean">
+		<delete dir="${build.dir}" />
+	</target>
+
+	<target name="copy">
+		<copy todir="${build.copy.dir}">
+			<fileset dir="${gradle.built.dir}"/>
+		</copy>
+	</target>
+
+	<target name="set-version-number" depends="copy">
+		<delete file="${build.copy.dir}/module.xml"/>
+		<xslt classpathref="nk4.anttools.path"
+		      in="${gradle.built.dir}/module.xml"
+		      out="${build.copy.dir}/module.xml">
+			<sysproperty key="javax.xml.transform.TransformerFactory"
+			             value="net.sf.saxon.TransformerFactoryImpl"/>
+			<style>
+				<javaresource classpathref="nk4.anttools.path" name="set-module-version.xsl"/>
+			</style>
+			<param name="version" expression="${package.version}"/>
+		</xslt>
+	</target>
+
+	<target name="jar" depends="set-version-number">
+		<nkmodule destdir="${build.jar.dir}" modulefile="${build.copy.dir}/module.xml">
+			<zipfileset dir="${build.copy.dir}/" prefix=""/>
+		</nkmodule>
+	</target>
+
+	<target name="package" depends="jar">
+		<nkpackage destfile="${build.package.file}"
+		           name="${package.name}"
+		           description="${package.description}"
+		           version="${package.version}">
+			<modulesfileset dir="${build.jar.dir}" prefix="modules" includes="*.jar"/>
+		</nkpackage>
+	</target>
+
+	<target name="repository.publish" depends="package">
+		<property name="repository.publish" value="true"/>
+		<publish-package package.name="${package.name}"
+		                 package.version="${package.version}"
+		                 package.location="${build.package.file}"/>
+	</target>
+
+	<target name="repository.push">
+		<property name="repository.push" value="true"/>
+		<push-package package.name="${package.name}"
+		              package.version="${package.version}"/>
+	</target>
+
+</project>
