@@ -6,8 +6,9 @@
 			<version>1.0.0</version>
 		</identity>
 		<info>
-			<name>Lang / Kotlin</name>
-			<description>Run Kotlin Script</description>
+			<name>Lang / Kotlin™</name>
+			<description>Standard library for Kotlin and Kotlin Script runtime</description>
+			<icon>res:/org/netkernel/lang/kotlin/img/icon.png</icon>
 		</info>
 	</meta>
 	<system>
@@ -18,31 +19,79 @@
 				<match>org\.netkernel\.lang\.kotlin\..*</match>
 			</exports>
 		</classloader>
-		<dynamic/>
+		<dynamic />
 	</system>
 
 	<rootspace>
 		<accessor>
-			<id>kotlin:runtime</id>
+			<id>KotlinScriptRuntime</id>
 			<grammar>
 				<active>
-					<identifier>active:kotlin</identifier>
-					<argument name="operator"/>
-					<varargs/>
+					<identifier>active:kotlinScript</identifier>
+					<argument name="operator" />
+					<varargs />
 				</active>
 			</grammar>
 			<class>org.netkernel.lang.kotlin.script.ScriptRuntimeAccessor</class>
+			<name>Kotlin</name>
+			<description>Kotlin Script Runtime</description>
+			<icon>res:/org/netkernel/lang/kotlin/img/icon.png</icon>
 		</accessor>
-		<transreptor>
-			<class>org.netkernel.lang.kotlin.script.ScriptTransreptor</class>
-		</transreptor>
+
+		<accessor>
+			<class>org.netkernel.lang.kotlin.wiki.KotlinMacroAccessor</class>
+			<grammar>
+				<active>
+					<identifier>active:wikiTemplateEngine/KOTLIN/XHTML</identifier>
+					<identifier>active:wikiTemplateEngine/KOTLIN/DOCBOOK</identifier>
+					<argument name="operand" min="1" max="1"/>
+				</active>
+			</grammar>
+		</accessor>
+
 		<representation>
+			<id>KotlinScriptCompiledRepresentation</id>
 			<class>org.netkernel.lang.kotlin.script.ScriptRepresentation</class>
+			<description>Compiled form of Kotlin Script</description>
 		</representation>
+
+		<transreptor>
+			<id>KotlinScriptCompiler</id>
+			<class>org.netkernel.lang.kotlin.script.ScriptTransreptor</class>
+			<description>Kotlin Script compiler</description>
+		</transreptor>
+
+		<fileset>
+			<id>DocMetadata</id>
+			<name>Documentation Metadata</name>
+			<regex>res:/etc/system/(Docs|Books|CDEPalette).xml</regex>
+		</fileset>
+		<fileset>
+			<id>Doc</id>
+			<name>Documentation</name>
+			<regex>res:/org/netkernel/lang/kotlin/doc/.*</regex>
+		</fileset>
+		<fileset>
+			<id>Icon</id>
+			<name>Kotlin Script icon</name>
+			<regex>res:/org/netkernel/lang/kotlin/img/icon.png</regex>
+		</fileset>
 
 		<import>
 			<uri>urn:org:netkernel:mod:hds</uri>
-			<private/>
+			<private />
 		</import>
+	</rootspace>
+
+	<rootspace uri="urn:org:netkernel:lang:kotlin:dokka" public="true">
+		<fileset>
+			<regex>res:/etc/system/SimpleDynamicImportHook.xml</regex>
+		</fileset>
+
+		<fileset>
+			<id>KotlinDokka</id>
+			<name>Generated Kotlin Documentation</name>
+			<regex>res:/dokka/.*</regex>
+		</fileset>
 	</rootspace>
 </module>

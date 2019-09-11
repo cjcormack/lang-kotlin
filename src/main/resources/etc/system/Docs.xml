@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<docs>
+	<doc>
+		<id>doc:lang:kotlin:title</id>
+		<title>Kotlin™</title>
+		<desc>A guide to NetKernel's Kotlin library and the Kotlin Script runtime service</desc>
+		<uri>res:/org/netkernel/lang/kotlin/doc/title.md</uri>
+	</doc>
+
+	<doc>
+		<id>doc:lang:kotlin:library</id>
+		<title>NetKernel's Kotlin™ Library</title>
+		<desc>A guide to the NetKernel library for Kotlin</desc>
+		<uri>res:/org/netkernel/lang/kotlin/doc/library.md</uri>
+	</doc>
+	<doc>
+		<id>doc:lang:kotlin:library:knkf</id>
+		<title>NetKernel Foundation API for Kotlin™</title>
+		<desc>A guide to the NetKernel Foundation for Kotlin (KNKF)</desc>
+		<uri>res:/org/netkernel/lang/kotlin/doc/library/knkf.md</uri>
+	</doc>
+	<doc>
+		<id>doc:lang:kotlin:library:dsls</id>
+		<title>Type-safe Builders (DSLs)</title>
+		<desc>A guide to the type-safe builders (DSLs) provided</desc>
+		<uri>res:/org/netkernel/lang/kotlin/doc/library/dsls.md</uri>
+	</doc>
+	<doc>
+		<id>doc:lang:kotlin:library:util</id>
+		<title>Utilities</title>
+		<desc>A guide to utilities provided by the Kotlin™ module</desc>
+		<uri>res:/org/netkernel/lang/kotlin/doc/library/util.md</uri>
+	</doc>
+
+	<doc>
+		<id>doc:lang:kotlin:script</id>
+		<title>Kotlin™ Script Runtime</title>
+		<desc>A guide to using NetKernel's Kotlin Script runtime</desc>
+		<uri>res:/org/netkernel/lang/kotlin/doc/script.md</uri>
+	</doc>
+
+	<doc>
+		<id>doc:lang:kotlin:ide</id>
+		<title>IDE Support</title>
+		<desc>A guide to configuring your IDE for Kotlin™</desc>
+		<uri>res:/org/netkernel/lang/kotlin/doc/ide.md</uri>
+	</doc>
+
+	<doc>
+		<id>doc:lang:kotlin:wiki</id>
+		<title>Kotlin™ Code Formatter</title>
+		<desc>A guide to the wiki macro for pretty printing Kotlin™ code</desc>
+		<uri>res:/org/netkernel/lang/kotlin/doc/wiki.md</uri>
+	</doc>
+
+	<doc>
+		<id>doc:lang:kotlin:license</id>
+		<title>License</title>
+		<desc>License information for the Kotlin™ module</desc>
+		<uri>res:/org/netkernel/lang/kotlin/doc/license.md</uri>
+	</doc>
+</docs>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<books>
+	<book>
+		<id>book:lang:kotlin:book</id>
+		<title>Kotlin™ Language</title>
+		<desc>Documentation for the standard library for Kotlin and Kotlin Script runtime service</desc>
+		<author/>
+		<publisher/>
+		<date/>
+		<modified>/</modified>
+		<icon>res:/org/netkernel/lang/kotlin/img/icon.png</icon>
+		<keywords/>
+		<toc>
+			<item id="doc:lang:kotlin:title">
+				<item id="doc:lang:kotlin:library" title="Library">
+					<item id="doc:lang:kotlin:library:knkf" title="NetKernel Foundation API for Kotlin" />
+					<item id="doc:lang:kotlin:library:dsls" title="Type-safe builders (DSLs)" />
+					<item id="doc:lang:kotlin:library:util" title="Utilities" />
+				</item>
+				<item id="doc:lang:kotlin:script" title="Kotlin Script Runtime" />
+				<item id="doc:lang:kotlin:ide" title="IDE Support" />
+				<item id="doc:lang:kotlin:wiki" title="Kotlin Code Formatter" />
+				<item id="doc:lang:kotlin:license" title="License" />
+			</item>
+		</toc>
+	</book>
+</books>

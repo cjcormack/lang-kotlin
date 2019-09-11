@@ -12,6 +12,10 @@ annotation class ContextBuilderMarker
 
 abstract class RequestContext(override val nkfContext: INKFRequestContext): BaseRequestContext {
 
+    fun argumentValue(argumentName: String): String {
+        return nkfContext.thisRequest.getArgumentValue(argumentName)
+    }
+
     /**
      * Issue a DELETE request and return the response.
      */
