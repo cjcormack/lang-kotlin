@@ -69,4 +69,4 @@ task copyToLib(type: Copy) {
     from configurations.runtime {}
 }
 
-jar.dependsOn(copyToLib, dokka)
+jar.dependsOn(copyToLib)
