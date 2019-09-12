@@ -39,19 +39,3 @@ fun <R, P> RequestContext.request(identifier: Identifier, representationClass: C
 
     return request
 }
-
-/**
- * Create a generic request. This is useful if you want to programmatically set the verb for the request (if you don't,
- * you'd be better off using a specific request function).
- */
-inline fun <reified R, reified P> RequestContext.request(identifier: Identifier, noinline init: GenericRequest<R, P>.() -> Unit = {}): GenericRequest<R, P> {
-    return request(identifier, R::class.java, P::class.java, init)
-}
-
-/**
- * Create a generic request. This is useful if you want to programmatically set the verb for the request (if you don't,
- * you'd be better off using a specific request function).
- */
-inline fun <reified R, reified P> RequestContext.request(identifier: String, noinline init: GenericRequest<R, P>.() -> Unit = {}): GenericRequest<R, P> {
-    return request(Identifier(identifier), R::class.java, P::class.java, init)
-}

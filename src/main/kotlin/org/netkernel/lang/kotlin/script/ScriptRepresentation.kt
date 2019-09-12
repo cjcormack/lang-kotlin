@@ -38,7 +38,7 @@ abstract class NetKernelKotlinScript(val context: RequestContext) {
 }
 
 object NetKernelScriptConfiguration : ScriptCompilationConfiguration({
-    defaultImports("org.netkernel.layer0.nkf.INKFRequestContext", "org.netkernel.lang.kotlin.knkf.context.*")
+    defaultImports("org.netkernel.layer0.nkf.INKFRequestContext", "org.netkernel.lang.kotlin.knkf.context.*", "org.netkernel.lang.kotlin.knkf.*")
     ide {
         acceptedLocations(ScriptAcceptedLocation.Everywhere)
     }

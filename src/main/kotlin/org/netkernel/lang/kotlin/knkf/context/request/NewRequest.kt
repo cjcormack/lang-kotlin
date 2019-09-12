@@ -28,20 +28,6 @@ fun <P> RequestContext.newRequest(identifier: Identifier, primaryClass: Class<P>
 }
 
 /**
- * Create a NEW request.
- */
-inline fun <reified P> RequestContext.newRequest(identifier: Identifier, noinline init: NewRequest<P>.() -> Unit = {}): NewRequest<P> {
-    return newRequest(identifier, P::class.java, init)
-}
-
-/**
- * Create a NEW request.
- */
-inline fun <reified P> RequestContext.newRequest(identifier: String, noinline init: NewRequest<P>.() -> Unit = {}): NewRequest<P> {
-    return newRequest(Identifier(identifier), P::class.java, init)
-}
-
-/**
  * Issue a NEW request and return the response. Generally, you'd be better off using the inline version of this function.
  */
 fun <P> RequestContext.new(identifier: Identifier, primaryClass: Class<P>, init: NewRequest<P>.() -> Unit = {}): Identifier {

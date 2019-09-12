@@ -1,9 +1,9 @@
 package org.netkernel.lang.kotlin.script
 
 import kotlinx.coroutines.runBlocking
-import org.netkernel.lang.kotlin.knkf.KotlinTransreptor
 import org.netkernel.lang.kotlin.knkf.context.TransreptorRequestContext
 import org.netkernel.lang.kotlin.knkf.context.sourcePrimary
+import org.netkernel.lang.kotlin.knkf.endpoints.KotlinTransreptor
 import kotlin.script.experimental.api.ScriptCompilationConfiguration
 import kotlin.script.experimental.api.valueOrNull
 import kotlin.script.experimental.host.toScriptSource

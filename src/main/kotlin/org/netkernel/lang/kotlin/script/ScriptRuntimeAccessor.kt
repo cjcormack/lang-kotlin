@@ -1,8 +1,8 @@
 package org.netkernel.lang.kotlin.script
 
 import kotlinx.coroutines.runBlocking
-import org.netkernel.lang.kotlin.knkf.KotlinAccessor
 import org.netkernel.lang.kotlin.knkf.context.*
+import org.netkernel.lang.kotlin.knkf.endpoints.KotlinAccessor
 import org.netkernel.layer0.util.RequestScopeClassLoader
 import kotlin.script.experimental.api.ScriptEvaluationConfiguration
 import kotlin.script.experimental.api.providedProperties

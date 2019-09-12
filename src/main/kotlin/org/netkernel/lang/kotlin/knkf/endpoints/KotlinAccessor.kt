@@ -1,4 +1,4 @@
-package org.netkernel.lang.kotlin.knkf
+package org.netkernel.lang.kotlin.knkf.endpoints
 
 import org.netkernel.lang.kotlin.knkf.context.*
 import org.netkernel.layer0.nkf.INKFRequestContext

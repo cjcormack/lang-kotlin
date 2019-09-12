@@ -1,4 +1,4 @@
-package org.netkernel.lang.kotlin.knkf
+package org.netkernel.lang.kotlin.knkf.endpoints
 
 import org.netkernel.lang.kotlin.knkf.context.TransreptorRequestContext
 import org.netkernel.layer0.nkf.INKFRequestContext
@@ -22,12 +22,12 @@ abstract class KotlinTransreptor<F,T>: StandardTransreptorImpl() {
     }
 
     @Deprecated("Deprecated in favour of generic version", ReplaceWith("fromRepresentation(aRepresentation)"))
-    override fun declareFromRepresentation(aRepresentation: Class<*>?) {
+    final override fun declareFromRepresentation(aRepresentation: Class<*>?) {
         super.declareFromRepresentation(aRepresentation)
     }
 
     @Deprecated("Deprecated in favour of generic version", ReplaceWith("toRepresentation(aRepresentation)"))
-    override fun declareToRepresentation(aRepresentation: Class<*>?) {
+    final override fun declareToRepresentation(aRepresentation: Class<*>?) {
         super.declareToRepresentation(aRepresentation)
     }
 }

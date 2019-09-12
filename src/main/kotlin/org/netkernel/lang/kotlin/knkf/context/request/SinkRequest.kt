@@ -28,20 +28,6 @@ fun <P> RequestContext.sinkRequest(identifier: Identifier, primaryClass: Class<P
 }
 
 /**
- * Create a SINK request.
- */
-inline fun <reified P> RequestContext.sinkRequest(identifier: Identifier, noinline init: SinkRequest<P>.() -> Unit = {}): SinkRequest<P> {
-    return sinkRequest(identifier, P::class.java, init)
-}
-
-/**
- * Create a SINK request.
- */
-inline fun <reified P> RequestContext.sinkRequest(identifier: String, noinline init: SinkRequest<P>.() -> Unit = {}): SinkRequest<P> {
-    return sinkRequest(Identifier(identifier), P::class.java, init)
-}
-
-/**
  * Issue a SINK request. Generally, you'd be better off using the inline version of this function.
  */
 fun <P> RequestContext.sink(identifier: Identifier, primaryClass: Class<P>, init: SinkRequest<P>.() -> Unit = {}) {

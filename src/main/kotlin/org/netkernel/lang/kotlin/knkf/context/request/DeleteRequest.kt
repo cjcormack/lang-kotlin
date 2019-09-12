@@ -15,23 +15,3 @@ class DeleteRequest internal constructor(
         Boolean::class.java,
         Verb.DELETE
 )
-
-/**
- * Create a new DELETE request.
- */
-fun RequestContext.deleteRequest(identifier: Identifier, init: DeleteRequest.() -> Unit): DeleteRequest {
-    val request = DeleteRequest(this, identifier)
-    request.init()
-
-    return request
-}
-
-/**
- * Create a new DELETE request.
- */
-fun RequestContext.deleteRequest(identifier: String, init: DeleteRequest.() -> Unit): DeleteRequest {
-    val request = DeleteRequest(this, Identifier(identifier))
-    request.init()
-
-    return request
-}

@@ -15,23 +15,3 @@ class ExistsRequest internal constructor(
         Boolean::class.java,
         Verb.EXISTS
 )
-
-/**
- * Create an EXISTS request.
- */
-fun RequestContext.existsRequest(identifier: Identifier, init: ExistsRequest.() -> Unit): ExistsRequest {
-    val request = ExistsRequest(this, identifier)
-    request.init()
-
-    return request
-}
-
-/**
- * Create an EXISTS request.
- */
-fun RequestContext.existsRequest(identifier: String, init: ExistsRequest.() -> Unit): ExistsRequest {
-    val request = ExistsRequest(this, Identifier(identifier))
-    request.init()
-
-    return request
-}

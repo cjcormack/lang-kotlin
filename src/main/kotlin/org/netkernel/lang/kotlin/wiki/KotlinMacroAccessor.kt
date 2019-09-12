@@ -1,8 +1,8 @@
 package org.netkernel.lang.kotlin.wiki
 
-import org.netkernel.lang.kotlin.knkf.KotlinAccessor
 import org.netkernel.lang.kotlin.knkf.LogLevel
 import org.netkernel.lang.kotlin.knkf.context.SourceRequestContext
+import org.netkernel.lang.kotlin.knkf.endpoints.KotlinAccessor
 import java.io.StringReader
 
 class KotlinMacroAccessor: KotlinAccessor() {
