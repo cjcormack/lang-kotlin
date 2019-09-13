@@ -31,3 +31,4 @@ hs_err_pid*
 /lang-kotlin.iml
 /apposite-builder/build.properties
 /apposite-builder/build/
+/gradle.properties
