@@ -33,6 +33,26 @@ apply plugin: 'netkernel'
 
 def nk_path=project.properties['nk_path'] ?: "../NKSE-5.2.1/"
 
+sourceSets["main"].java.srcDirs("src")
+sourceSets["main"].kotlin.srcDirs("src")
+sourceSets["main"].resources.srcDirs("src")
+
+sourceSets["main"].java.exclude("**/*.kts")
+sourceSets["main"].kotlin.exclude("**/*.kts")
+
+def void explainMe(it){
+    //println "Examining $it.name:"
+    println "Meta:"
+    println it.metaClass.metaMethods*.name.sort().unique()
+    println "Methods:"
+    println it.metaClass.methods*.name.sort().unique()
+    println "Depends On:"
+    //println it.dependsOn.collect({it*.getName()})
+    println "Properties:"
+    println it.properties.entrySet()*.toString()
+            .sort().toString().replaceAll(", ","\n")
+}
+
 netkernel {
     useMavenCentral()
     useMavenNK()
@@ -73,10 +93,4 @@ dependencies {
   compileOnly group: 'urn.org.netkernel', name: 'mod.hds', version: '[1.5.1,)'
 }
 
-
-task copyToLib(type: Copy) {
-    into "$buildDir/${netkernel.module.name}/lib"
-    from configurations.runtime {}
-}
-
-jar.dependsOn(copyToLib, dokka)
+jar.dependsOn(dokka)
