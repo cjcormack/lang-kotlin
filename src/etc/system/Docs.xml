@@ -40,6 +40,20 @@
 	</doc>
 
 	<doc>
+		<id>doc:lang:kotlin:inlineRequests</id>
+		<title>Inline Requests</title>
+		<desc>A guide to running Kotlin lambdas as a new request</desc>
+		<uri>res:/org/netkernel/lang/kotlin/doc/inlineRequests.md</uri>
+	</doc>
+
+	<doc>
+		<id>doc:lang:kotlin:xunit</id>
+		<title>XUnit Tests</title>
+		<desc>A guide to writing NetKernel tests in Kotlin™ code</desc>
+		<uri>res:/org/netkernel/lang/kotlin/doc/xunit.md</uri>
+	</doc>
+
+	<doc>
 		<id>doc:lang:kotlin:ide</id>
 		<title>IDE Support</title>
 		<desc>A guide to configuring your IDE for Kotlin™</desc>

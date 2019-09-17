@@ -1,7 +1,8 @@
 package org.netkernel.lang.kotlin.dsl.mapper
 
 import org.netkernel.lang.kotlin.dsl.BuilderNode
-import org.netkernel.lang.kotlin.dsl.declarativeRequest.Request
+import org.netkernel.lang.kotlin.dsl.declarativeRequest.DeclarativeRequestContainer
+import org.netkernel.lang.kotlin.dsl.declarativeRequest.DeclarativeRequestContainerImpl
 import org.netkernel.lang.kotlin.dsl.grammar.ActiveGrammar
 import org.netkernel.lang.kotlin.dsl.grammar.SimpleGrammar
 import org.netkernel.lang.kotlin.dsl.grammar.StandardGrammar
@@ -27,7 +28,7 @@ class MapperConfig(): BuilderNode(HDSFactory.newDocument(), "config") {
     fun meta(init: Meta.() -> Unit) = initNode(Meta(builder), init)
 }
 
-class Endpoint(builder: IHDSMutator): BuilderNode(builder, "endpoint") {
+class Endpoint(builder: IHDSMutator): BuilderNode(builder, "endpoint"), DeclarativeRequestContainer by DeclarativeRequestContainerImpl(builder, "request") {
     fun id(id: String) {
         builder.addNode("id", id)
     }
@@ -46,13 +47,6 @@ class Endpoint(builder: IHDSMutator): BuilderNode(builder, "endpoint") {
     }
 
     fun standardGrammar(init: StandardGrammar.() -> Unit) = initNode(StandardGrammar(builder), init)
-
-    fun request(identifier: String, init: (Request.() -> Unit)? = null) = initNode(Request(builder)) {
-        builder.addNode("identifier", identifier)
-        if (init != null) {
-            init()
-        }
-    }
 
     fun meta(init: Meta.() -> Unit) = initNode(Meta(builder), init)
 }

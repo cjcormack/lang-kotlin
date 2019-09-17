@@ -3,12 +3,14 @@ package org.netkernel.lang.kotlin.dsl.declarativeRequest
 import org.netkernel.lang.kotlin.dsl.BuilderNode
 import org.netkernel.lang.kotlin.dsl.hds.HdsRoot
 import org.netkernel.lang.kotlin.dsl.initNode
+import org.netkernel.lang.kotlin.inline.*
+import org.netkernel.lang.kotlin.knkf.Identifier
 import org.netkernel.lang.kotlin.knkf.Verb
 import org.netkernel.mod.hds.IHDSDocument
 import org.netkernel.mod.hds.IHDSMutator
 import kotlin.reflect.KClass
 
-class Request(builder: IHDSMutator): BuilderNode(builder, "request") {
+class Request(builder: IHDSMutator, hdsName: String = "request"): BuilderNode(builder, hdsName) {
     fun verb(verb: Verb) {
         builder.addNode("verb", verb.name)
     }
@@ -110,12 +112,45 @@ abstract class LiteralBuilder(builder: IHDSMutator, hdsName: String): BuilderNod
     }
 }
 
-class Argument(builder: IHDSMutator): LiteralBuilder(builder, "argument") {
-    fun request(identifier: String, init: Request.() -> Unit) = initNode(Request(builder)) {
-        builder.addNode("identifier", identifier)
+interface DeclarativeRequestContainer {
+    fun request(identifier: Identifier, init: Request.() -> Unit): Request
+    fun request(identifier: String, init: Request.() -> Unit): Request
+    fun inlineSource(init: Request.() -> Unit = {}, lambda: InlineSourceLambda): Request
+    fun inlineSink(init: Request.() -> Unit = {}, lambda: InlineSinkLambda): Request
+    fun inlineExists(init: Request.() -> Unit = {}, lambda: InlineExistsLambda): Request
+    fun inlineNew(init: Request.() -> Unit = {}, lambda: InlineNewLambda): Request
+    fun inlineDelete(init: Request.() -> Unit = {}, lambda: InlineDeleteLambda): Request
+}
+
+internal class DeclarativeRequestContainerImpl(private val builder: IHDSMutator, private val requestHdsName: String): DeclarativeRequestContainer {
+    override fun request(identifier: Identifier, init: Request.() -> Unit) = initNode(Request(builder, requestHdsName)) {
+        builder.addNode("identifier", identifier.identifier)
+    }
+    override fun request(identifier: String, init: Request.() -> Unit) = request(Identifier(identifier), init)
+
+    override fun inlineSource(init: Request.() -> Unit, lambda: InlineSourceLambda) = inlineRequest(Verb.SOURCE, init, InlineRequest(lambda))
+
+    override fun inlineSink(init: Request.() -> Unit, lambda: InlineSinkLambda) = inlineRequest(Verb.SINK, init, InlineRequest(lambda))
+
+    override fun inlineExists(init: Request.() -> Unit, lambda: InlineExistsLambda) = inlineRequest(Verb.EXISTS, init, InlineRequest(lambda))
+
+    override fun inlineNew(init: Request.() -> Unit, lambda: InlineNewLambda) = inlineRequest(Verb.NEW, init, InlineRequest(lambda))
+
+    override fun inlineDelete(init: Request.() -> Unit, lambda: InlineDeleteLambda) = inlineRequest(Verb.DELETE, init, InlineRequest(lambda))
+
+    private fun <T> inlineRequest(verb: Verb, init: Request.() -> Unit, inlineRequest: InlineRequest<T>) = initNode(Request(builder, requestHdsName)) {
+        builder.addNode("identifier", "active:inlineKotlin")
+        verb(verb)
+        argument("operator") {
+            literalHds {
+                node("lambda", inlineRequest)
+            }
+        }
         init()
     }
 }
+
+class Argument(builder: IHDSMutator): LiteralBuilder(builder, "argument"), DeclarativeRequestContainer by DeclarativeRequestContainerImpl(builder, "request")
 
 class LiteralConstructorArguments(builder: IHDSMutator): LiteralBuilder(builder, "literal")
 

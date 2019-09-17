@@ -3,6 +3,7 @@ package org.netkernel.lang.kotlin.script
 import org.netkernel.layer0.nkf.INKFRequestContext
 import org.netkernel.layer0.util.DynamicURLClassLoader
 import org.netkernel.layer0.util.SpaceClassLoader
+import org.netkernel.urii.ClassLoaderWithExports
 import java.io.File
 import java.net.URI
 import java.net.URL
@@ -25,7 +26,9 @@ internal fun ClassLoader.getJarUrls(): List<URL> {
     val urls = when (this) {
         is URLClassLoader -> this.urLs.toList()
         is DynamicURLClassLoader -> this.getUrls()
-        else -> emptyList()
+        else -> {
+            emptyList()
+        }
     }.toMutableList()
 
     val parentCl = this.parent
@@ -35,6 +38,9 @@ internal fun ClassLoader.getJarUrls(): List<URL> {
     }
 
     if (this is SpaceClassLoader) {
+        this.getImports().forEach {
+            urls.addAll(it.getJarUrls())
+        }
         urls.addAll(this.parentClassLoader?.getJarUrls() ?: emptyList())
     }
 
@@ -73,4 +79,23 @@ internal fun DynamicURLClassLoader.getUrls(): List<URL> {
         check(f.exists())
         f.toURI().toURL()
     }
+}
+
+internal fun SpaceClassLoader.getImports(): List<ClassLoaderWithExports> {
+    val dynamicCL = generateSequence<Class<*>>(this.javaClass) { it.superclass }.filter { it ==  SpaceClassLoader::class.java }.first()
+
+    // another horrible hack!
+    val mImportsField = dynamicCL.getDeclaredField("mImports")
+    mImportsField.isAccessible = true
+
+    val mImportsValue = mImportsField.get(this)
+    check(mImportsValue is Array<*>)
+
+    return mImportsValue.map {
+        if (it is ClassLoaderWithExports) {
+            it
+        } else {
+            throw Exception("Unexpectedly got a list with something not a ClassLoaderWithExports from mImports")
+        }
+    }.toList()
 }

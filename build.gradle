@@ -89,6 +89,9 @@ dependencies {
   compile "org.jetbrains.kotlin:kotlin-compiler:${versions.kotlin}"
   compile "org.jetbrains.kotlin:kotlin-script-util:${versions.kotlin}"
   compile "org.jetbrains.kotlin:kotlin-scripting-jvm-host:${versions.kotlin}"
+  compile "org.jetbrains.kotlin:kotlin-script-runtime:${versions.kotlin}"
+  compile "org.jetbrains.kotlin:kotlin-scripting-compiler:${versions.kotlin}"
+  compile "org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable:${versions.kotlin}"
 
   compileOnly group: 'urn.org.netkernel', name: 'mod.hds', version: '[1.5.1,)'
 }

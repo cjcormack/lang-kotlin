@@ -25,6 +25,10 @@ abstract class KotlinAccessor: StandardAccessorImpl() {
         ExistsRequestContext(context).onExists()
     }
 
+    final override fun declareThreadSafe() {
+        super.declareThreadSafe()
+    }
+
     open fun NewRequestContext.onNew() {
         throw NotImplementedError()
     }

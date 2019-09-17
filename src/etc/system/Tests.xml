@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests>
+	<test>
+		<id>urn:test:org:netkernel:lang:kotlin:inlineRequests</id>
+		<name>Kotlin Tests / Inline Requests</name>
+		<uri>active:java+class@org.netkernel.lang.kotlin.tests.InlineRequestsTestList</uri>
+	</test>
+</tests>

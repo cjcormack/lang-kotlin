@@ -6,12 +6,13 @@ import org.netkernel.lang.kotlin.knkf.context.request.*
 import org.netkernel.lang.kotlin.knkf.context.response.ReadOnlyResponse
 import org.netkernel.layer0.nkf.INKFRequestContext
 import java.io.PrintWriter
+import java.io.Serializable
 import java.io.StringWriter
 
 @DslMarker
 annotation class ContextBuilderMarker
 
-abstract class RequestContext(override val nkfContext: INKFRequestContext): BaseRequestContext {
+abstract class RequestContext(override val nkfContext: INKFRequestContext): BaseRequestContext, Serializable {
 
     fun argumentValue(argumentName: String): String {
         return nkfContext.thisRequest.getArgumentValue(argumentName)
