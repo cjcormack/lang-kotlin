@@ -1,0 +1,31 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+apply plugin: 'netkernel'
+
+sourceSets["main"].java.srcDirs("src")
+sourceSets["main"].kotlin.srcDirs("src")
+sourceSets["main"].resources.srcDirs("src")
+
+sourceSets["main"].java.exclude("**/*.kts")
+sourceSets["main"].kotlin.exclude("**/*.kts")
+
+netkernel {
+    useMavenCentral()
+    useMavenNK()
+
+    instances {
+        NK {
+            edition = "SE"
+            location = nk_path
+        }
+    }
+}
+
+//Additional Compile Dependencies
+dependencies {
+  compileOnly project(':modules:urn.org.netkernel.kotlin')
+
+  compileOnly group: 'urn.org.netkernel', name: 'mod.hds', version: '[1.5.1,)'
+}

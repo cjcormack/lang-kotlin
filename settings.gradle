@@ -1,0 +1,4 @@
+include (
+    ':modules:urn.org.netkernel.kotlin',
+    ':modules:urn.test.org.netkernel.kotlin'
+)

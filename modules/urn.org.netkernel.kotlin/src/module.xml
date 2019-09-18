@@ -109,24 +109,4 @@
 			<regex>res:/dokka/.*</regex>
 		</fileset>
 	</rootspace>
-
-	<rootspace uri="urn:test:org:netkernel:lang:kotlin" public="true">
-		<fileset>
-			<regex>res:/etc/system/Tests.xml</regex>
-		</fileset>
-		<fileset>
-			<regex>res:/org/netkernel/lang/kotlin/tests/.*</regex>
-		</fileset>
-
-		<import>
-			<uri>urn:org:netkernel:lang:kotlin</uri>
-		</import>
-		<import>
-			<uri>urn:org:netkernel:mod:hds</uri>
-		</import>
-
-		<import>
-			<uri>urn:org:netkernel:ext:layer1</uri>
-		</import>
-	</rootspace>
 </module>
