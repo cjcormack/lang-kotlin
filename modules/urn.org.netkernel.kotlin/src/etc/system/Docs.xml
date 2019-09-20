@@ -44,6 +44,7 @@
 		<title>Inline Requests</title>
 		<desc>A guide to running Kotlin lambdas as a new request</desc>
 		<uri>res:/org/netkernel/lang/kotlin/doc/inlineRequests.md</uri>
+		<category>doc runtime</category>
 	</doc>
 
 	<doc>

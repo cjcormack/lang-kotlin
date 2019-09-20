@@ -28,7 +28,7 @@ class MapperConfig(): BuilderNode(HDSFactory.newDocument(), "config") {
     fun meta(init: Meta.() -> Unit) = initNode(Meta(builder), init)
 }
 
-class Endpoint(builder: IHDSMutator): BuilderNode(builder, "endpoint"), DeclarativeRequestContainer by DeclarativeRequestContainerImpl(builder, "request") {
+class Endpoint(builderToClone: IHDSMutator): BuilderNode(builderToClone, "endpoint"), DeclarativeRequestContainer by DeclarativeRequestContainerImpl(builderToClone, "request") {
     fun id(id: String) {
         builder.addNode("id", id)
     }
@@ -51,7 +51,7 @@ class Endpoint(builder: IHDSMutator): BuilderNode(builder, "endpoint"), Declarat
     fun meta(init: Meta.() -> Unit) = initNode(Meta(builder), init)
 }
 
-class Meta(builder: IHDSMutator): BuilderNode(builder, "meta") {
+class Meta(builderToClone: IHDSMutator): BuilderNode(builderToClone, "meta") {
     fun node(name: String, value: IHDSMutator) {
         builder.pushNode(name)
         builder.appendChildren(value)

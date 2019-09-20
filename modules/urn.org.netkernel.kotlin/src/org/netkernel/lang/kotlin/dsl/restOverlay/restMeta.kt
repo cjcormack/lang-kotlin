@@ -18,7 +18,7 @@ enum class Method {
 
 fun Meta.rest(init: RestMetaNode.() -> Unit) = initNode(RestMetaNode(builder), init)
 
-class RestMetaNode(builder: IHDSMutator): BuilderNode(builder, "rest") {
+class RestMetaNode(builderToClone: IHDSMutator): BuilderNode(builderToClone, "rest") {
     fun method(vararg methods: Method) {
         builder.addNode("method", methods.joinToString(","))
     }

@@ -10,7 +10,7 @@ import org.netkernel.mod.hds.IHDSDocument
 import org.netkernel.mod.hds.IHDSMutator
 import kotlin.reflect.KClass
 
-class Request(builder: IHDSMutator, hdsName: String = "request"): BuilderNode(builder, hdsName) {
+class Request(builderToClone: IHDSMutator, hdsName: String = "request"): BuilderNode(builderToClone, hdsName) {
     fun verb(verb: Verb) {
         builder.addNode("verb", verb.name)
     }
@@ -73,7 +73,7 @@ enum class ArgumentMethod(val value: String) {
     FROM_STRING("from-string")
 }
 
-abstract class LiteralBuilder(builder: IHDSMutator, hdsName: String): BuilderNode(builder, hdsName) {
+abstract class LiteralBuilder(builderToClone: IHDSMutator, hdsName: String): BuilderNode(builderToClone, hdsName) {
     private fun doLiteral(type: String, value: Any) = initNode(LiteralConstructorArguments(builder)) {
         builder.addNode("@type", type)
         builder.setValue(value)
@@ -150,11 +150,21 @@ internal class DeclarativeRequestContainerImpl(private val builder: IHDSMutator,
     }
 }
 
-class Argument(builder: IHDSMutator): LiteralBuilder(builder, "argument"), DeclarativeRequestContainer by DeclarativeRequestContainerImpl(builder, "request")
+class Argument(builderToClone: IHDSMutator): LiteralBuilder(builderToClone, "argument"), DeclarativeRequestContainer {
+    private val requestFactory = DeclarativeRequestContainerImpl(builder, "request")
 
-class LiteralConstructorArguments(builder: IHDSMutator): LiteralBuilder(builder, "literal")
+    override fun request(identifier: Identifier, init: Request.() -> Unit) = requestFactory.request(identifier, init)
+    override fun request(identifier: String, init: Request.() -> Unit) = requestFactory.request(identifier, init)
+    override fun inlineSource(init: Request.() -> Unit, lambda: InlineSourceLambda) = requestFactory.inlineSource(init, lambda)
+    override fun inlineSink(init: Request.() -> Unit, lambda: InlineSinkLambda) = requestFactory.inlineSink(init, lambda)
+    override fun inlineExists(init: Request.() -> Unit, lambda: InlineExistsLambda) = requestFactory.inlineExists(init, lambda)
+    override fun inlineNew(init: Request.() -> Unit, lambda: InlineNewLambda) = requestFactory.inlineNew(init, lambda)
+    override fun inlineDelete(init: Request.() -> Unit, lambda: InlineDeleteLambda) = requestFactory.inlineDelete(init, lambda)
+}
 
-class Header(builder: IHDSMutator): LiteralBuilder(builder, "header") {
+class LiteralConstructorArguments(builderToClone: IHDSMutator): LiteralBuilder(builderToClone, "literal")
+
+class Header(builderToClone: IHDSMutator): LiteralBuilder(builderToClone, "header") {
     fun sticky(sticky: Boolean) {
         builder.addNode("@sticky", sticky)
     }

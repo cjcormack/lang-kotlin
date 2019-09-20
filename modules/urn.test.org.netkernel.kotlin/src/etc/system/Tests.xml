@@ -3,6 +3,11 @@
 	<test>
 		<id>urn:test:org:netkernel:lang:kotlin:inlineRequests</id>
 		<name>Kotlin Tests / Inline Requests</name>
-		<uri>active:java+class@org.netkernel.lang.kotlin.tests.InlineRequestsTestList</uri>
+		<uri>res:/org/netkernel/lang/kotlin/tests/inlineRequests/testList</uri>
+	</test>
+	<test>
+		<id>urn:test:org:netkernel:lang:kotlin:dsl:hds</id>
+		<name>Kotlin Tests / DSLs / HDS</name>
+		<uri>res:/org/netkernel/lang/kotlin/tests/dsl/hds/testList</uri>
 	</test>
 </tests>

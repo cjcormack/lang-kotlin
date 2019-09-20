@@ -18,6 +18,27 @@
 		<fileset>
 			<regex>res:/etc/system/Tests.xml</regex>
 		</fileset>
+
+		<mapper>
+			<config>
+				<endpoint>
+					<grammar>res:/org/netkernel/lang/kotlin/tests/inlineRequests/testList</grammar>
+					<request>
+						<identifier>active:java</identifier>
+						<argument name="class">org.netkernel.lang.kotlin.tests.inlineRequests.TestList</argument>
+					</request>
+				</endpoint>
+				<endpoint>
+					<grammar>res:/org/netkernel/lang/kotlin/tests/dsl/hds/testList</grammar>
+					<request>
+						<identifier>active:java</identifier>
+						<argument name="class">org.netkernel.lang.kotlin.tests.dsl.hds.TestList</argument>
+					</request>
+				</endpoint>
+			</config>
+			<space/>
+		</mapper>
+
 		<fileset>
 			<regex>res:/org/netkernel/lang/kotlin/tests/.*</regex>
 		</fileset>
@@ -31,6 +52,7 @@
 
 		<import>
 			<uri>urn:org:netkernel:ext:layer1</uri>
+			<private/>
 		</import>
 	</rootspace>
 </module>

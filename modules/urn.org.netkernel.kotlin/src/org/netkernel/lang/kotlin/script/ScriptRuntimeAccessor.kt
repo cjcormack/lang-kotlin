@@ -1,8 +1,10 @@
 package org.netkernel.lang.kotlin.script
 
 import kotlinx.coroutines.runBlocking
+import org.netkernel.lang.kotlin.inline.InlineRequest
 import org.netkernel.lang.kotlin.knkf.context.*
 import org.netkernel.lang.kotlin.knkf.endpoints.KotlinAccessor
+import org.netkernel.layer0.meta.impl.SourcedArgumentMetaImpl
 import org.netkernel.layer0.util.RequestScopeClassLoader
 import kotlin.script.experimental.api.ScriptEvaluationConfiguration
 import kotlin.script.experimental.api.providedProperties
@@ -10,7 +12,8 @@ import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost
 
 class ScriptRuntimeAccessor: KotlinAccessor() {
     init {
-        this.declareThreadSafe()
+        declareThreadSafe()
+        declareArgument(SourcedArgumentMetaImpl("operator", "Lambda to run", null, arrayOf<Class<*>>(InlineRequest::class.java)))
     }
 
     override fun DeleteRequestContext.onDelete() = runScript()

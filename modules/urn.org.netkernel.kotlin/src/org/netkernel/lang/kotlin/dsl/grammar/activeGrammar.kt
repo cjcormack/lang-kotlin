@@ -5,7 +5,7 @@ import org.netkernel.lang.kotlin.dsl.initNode
 import org.netkernel.mod.hds.IHDSMutator
 import kotlin.reflect.KClass
 
-class ActiveGrammar(builder: IHDSMutator): BuilderNode(builder, listOf("grammar", "active")) {
+class ActiveGrammar(builderToClone: IHDSMutator): BuilderNode(builderToClone, listOf("grammar", "active")) {
 
     fun argument(name: String, desc: String? = null, min: Int? = null, max: Int? = null, init: (Argument.() -> Unit)? = null) = initNode(Argument(builder)) {
         builder.addNode("@name", name)
@@ -31,7 +31,7 @@ class ActiveGrammar(builder: IHDSMutator): BuilderNode(builder, listOf("grammar"
     }
 }
 
-class Argument(builder: IHDSMutator): BuilderNode(builder, "argument") {
+class Argument(builderToClone: IHDSMutator): BuilderNode(builderToClone, "argument") {
     fun representation(representationClass: KClass<*>) {
         builder.addNode("representation", representationClass.qualifiedName)
     }

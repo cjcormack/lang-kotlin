@@ -4,7 +4,7 @@ import org.netkernel.lang.kotlin.dsl.BuilderNode
 import org.netkernel.lang.kotlin.dsl.initNode
 import org.netkernel.mod.hds.IHDSMutator
 
-abstract class BaseStandardGrammarNode(builder: IHDSMutator, hdsName: String): BuilderNode(builder, hdsName) {
+abstract class BaseStandardGrammarNode(builderToClone: IHDSMutator, hdsName: String): BuilderNode(builderToClone, hdsName) {
     fun group(name: String? = null, min: Int? = null, max: Int? = null, encoding: Group.Encoding? = null, init: (Group.() -> Unit)) = initNode(Group(builder)) {
         if (name != null) {
             builder.addNode("@name", name)
@@ -30,7 +30,7 @@ abstract class BaseStandardGrammarNode(builder: IHDSMutator, hdsName: String): B
     fun interleave(init: (StandardGrammarNode.() -> Unit)) = initNode(StandardGrammarNode(builder, "interleave"), init)
 }
 
-class StandardGrammarNode(builder: IHDSMutator, hdsName: String): BaseStandardGrammarNode(builder, hdsName)
+class StandardGrammarNode(builderToClone: IHDSMutator, hdsName: String): BaseStandardGrammarNode(builderToClone, hdsName)
 
 enum class RegexType(val value: String) {
     URI("uri"),
@@ -47,9 +47,9 @@ enum class RegexType(val value: String) {
     NOTHING("nothing")
 }
 
-class StandardGrammar(builder: IHDSMutator): BaseStandardGrammarNode(builder, "grammar")
+class StandardGrammar(builderToClone: IHDSMutator): BaseStandardGrammarNode(builderToClone, "grammar")
 
-class Group(builder: IHDSMutator): BaseStandardGrammarNode(builder, "group") {
+class Group(builderToClone: IHDSMutator): BaseStandardGrammarNode(builderToClone, "group") {
     fun encoding(encoding: Encoding) {
         builder.addNode("@encoding", encoding.value)
     }

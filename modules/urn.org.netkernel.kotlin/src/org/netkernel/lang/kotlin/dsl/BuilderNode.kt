@@ -6,14 +6,21 @@ import org.netkernel.mod.hds.IHDSMutator
 annotation class HdsBuilderMarker
 
 @HdsBuilderMarker
-abstract class BuilderNode(internal val builder: IHDSMutator, internal val hdsNames: List<String>) {
-    constructor(builder: IHDSMutator, hdsName: String) : this(builder, listOf(hdsName))
+abstract class BuilderNode(builderToClone: IHDSMutator, internal val hdsNames: List<String>) {
+    internal val builder: IHDSMutator = if (builderToClone.cursorXPath != "") {
+        builderToClone.getFirstNode(builderToClone.cursorXPath)
+    } else {
+        builderToClone
+    }
+
+    constructor(builderToClone: IHDSMutator, hdsName: String) : this(builderToClone, listOf(hdsName))
 }
 
 internal fun <T: BuilderNode> initNode(node: T, init: T.() -> Unit): T {
     node.hdsNames.forEach { node.builder.pushNode(it) }
     node.init()
-    node.hdsNames.forEach { _ -> node.builder.popNode() }
+    // as we clone the builder, we don't need to pop the added nodes.
+    // we also don't want to—adding a node to this builder later on should also add it as a child
 
     return node
 }

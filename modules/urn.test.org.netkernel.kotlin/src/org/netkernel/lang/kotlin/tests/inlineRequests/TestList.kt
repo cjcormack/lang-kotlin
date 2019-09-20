@@ -1,15 +1,15 @@
-package org.netkernel.lang.kotlin.tests
+package org.netkernel.lang.kotlin.tests.inlineRequests
 
 import org.netkernel.lang.kotlin.knkf.Identifier
 import org.netkernel.lang.kotlin.knkf.context.sourcePrimary
 import org.netkernel.lang.kotlin.util.firstValue
-import org.netkernel.lang.kotlin.xunit.KotlinTest
-import org.netkernel.lang.kotlin.xunit.KotlinTestList
-import org.netkernel.lang.kotlin.xunit.Test
+import org.netkernel.lang.kotlin.xunit.XUnitTest
+import org.netkernel.lang.kotlin.xunit.XUnitTestList
+import org.netkernel.lang.kotlin.dsl.xunit.Test
 import org.netkernel.mod.hds.IHDSDocument
 
-class InlineRequestsTestList: KotlinTestList() {
-    @KotlinTest("Inline SOURCE Test")
+class TestList: XUnitTestList() {
+    @XUnitTest("Inline SOURCE Test")
     fun Test.inlineSourceTest()  {
         requestInlineSource {
             response {
@@ -21,7 +21,7 @@ class InlineRequestsTestList: KotlinTestList() {
         }
     }
 
-    @KotlinTest("Inline SINK Test")
+    @XUnitTest("Inline SINK Test")
     fun Test.inlineSinkTest() {
         requestInlineSink {}
         assert {
@@ -29,7 +29,7 @@ class InlineRequestsTestList: KotlinTestList() {
         }
     }
 
-    @KotlinTest("Inline SINK Test with primary")
+    @XUnitTest("Inline SINK Test with primary")
     fun Test.inlineSinkTestWithPrimary() {
         requestInlineSink(init = {
             argument("primary") {
@@ -49,7 +49,7 @@ class InlineRequestsTestList: KotlinTestList() {
         }
     }
 
-    @KotlinTest("Inline EXISTS Test (true)")
+    @XUnitTest("Inline EXISTS Test (true)")
     fun Test.inlineExistsTrueTest() {
         requestInlineExists {
             response {
@@ -61,7 +61,7 @@ class InlineRequestsTestList: KotlinTestList() {
         }
     }
 
-    @KotlinTest("Inline EXISTS Test (false)")
+    @XUnitTest("Inline EXISTS Test (false)")
     fun Test.inlineExistsFalseTest() {
         requestInlineExists {
             response {
@@ -73,7 +73,7 @@ class InlineRequestsTestList: KotlinTestList() {
         }
     }
 
-    @KotlinTest("Inline DELETE Test (true)")
+    @XUnitTest("Inline DELETE Test (true)")
     fun Test.inlineDeleteTrueTest() {
         requestInlineDelete {
             response {
@@ -85,7 +85,7 @@ class InlineRequestsTestList: KotlinTestList() {
         }
     }
 
-    @KotlinTest("Inline DELETE Test (false)")
+    @XUnitTest("Inline DELETE Test (false)")
     fun Test.inlineDeleteFalseTest() {
         requestInlineDelete {
             response {
@@ -97,7 +97,7 @@ class InlineRequestsTestList: KotlinTestList() {
         }
     }
 
-    @KotlinTest("Inline NEW Test")
+    @XUnitTest("Inline NEW Test")
     fun Test.inlineNewTest() {
         requestInlineNew {
             response {
@@ -109,23 +109,16 @@ class InlineRequestsTestList: KotlinTestList() {
         }
     }
 
-    @KotlinTest("Inline NEW Test with Primary")
+    @XUnitTest("Inline NEW Test with Primary")
     fun Test.inlineNewTestWithPrimary() {
-        requestInlineNew(init = {
-            argument("primary") {
-                literalHds {
-                    node("item") {
-                        node("id", "HelloWorld")
-                    }
-                }
-            }
-        }) {
+        val req = requestInlineNew{
             response {
                 val item = sourcePrimary<IHDSDocument>()
 
                 Identifier(item.reader.firstValue("/item/id"))
             }
         }
+        req.argument("primary", "helloWorld")
 
         assert {
             stringEquals("HelloWorld")

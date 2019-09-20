@@ -3,7 +3,7 @@ package org.netkernel.lang.kotlin.dsl.grammar
 import org.netkernel.lang.kotlin.dsl.BuilderNode
 import org.netkernel.mod.hds.IHDSMutator
 
-class SimpleGrammar(builder: IHDSMutator): BuilderNode(builder, listOf("grammar", "simple")) {
+class SimpleGrammar(builderToClone: IHDSMutator): BuilderNode(builderToClone, listOf("grammar", "simple")) {
     var currentValue = ""
         set(value) {
             field = value

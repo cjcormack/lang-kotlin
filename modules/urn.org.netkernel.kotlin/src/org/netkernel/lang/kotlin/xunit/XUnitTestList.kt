@@ -1,5 +1,7 @@
 package org.netkernel.lang.kotlin.xunit
 
+import org.netkernel.lang.kotlin.dsl.xunit.TestList
+import org.netkernel.lang.kotlin.dsl.xunit.testlist
 import org.netkernel.lang.kotlin.knkf.context.SourceRequestContext
 import org.netkernel.lang.kotlin.knkf.endpoints.KotlinAccessor
 import kotlin.reflect.full.findAnnotation
@@ -7,9 +9,9 @@ import kotlin.reflect.full.functions
 
 @Target(AnnotationTarget.FUNCTION)
 @MustBeDocumented
-annotation class KotlinTest(val name: String)
+annotation class XUnitTest(val name: String)
 
-abstract class KotlinTestList: KotlinAccessor() {
+abstract class XUnitTestList: KotlinAccessor() {
     init {
         declareThreadSafe()
     }
@@ -17,16 +19,18 @@ abstract class KotlinTestList: KotlinAccessor() {
     final override fun SourceRequestContext.onSource() {
         response {
             testlist {
-                this@KotlinTestList::class.functions.forEach {
-                    val testAnnotation = it.findAnnotation<KotlinTest>()
+                initTestList()
+                this@XUnitTestList::class.functions.forEach {
+                    val testAnnotation = it.findAnnotation<XUnitTest>()
 
                     if (testAnnotation != null) {
                         test(testAnnotation.name) {
-                            it.call(this@KotlinTestList, this)
+                            it.call(this@XUnitTestList, this)
                         }
                     }
                 }
             }
         }
     }
+    open fun TestList.initTestList() {}
 }

@@ -1,4 +1,4 @@
-package org.netkernel.lang.kotlin.xunit
+package org.netkernel.lang.kotlin.dsl.xunit
 
 import org.netkernel.lang.kotlin.dsl.BuilderNode
 import org.netkernel.lang.kotlin.dsl.declarativeRequest.DeclarativeRequestContainerImpl
@@ -6,26 +6,9 @@ import org.netkernel.lang.kotlin.dsl.declarativeRequest.Request
 import org.netkernel.lang.kotlin.dsl.initNode
 import org.netkernel.lang.kotlin.inline.*
 import org.netkernel.lang.kotlin.knkf.Identifier
-import org.netkernel.mod.hds.HDSFactory
-import org.netkernel.mod.hds.IHDSDocument
 import org.netkernel.mod.hds.IHDSMutator
 
-fun testlist(init: TestList.() -> Unit): IHDSDocument {
-    val testList = initNode(TestList(), init)
-
-    return testList.builder.toDocument(false)
-}
-
-class TestList: BuilderNode(HDSFactory.newDocument(), "testlist") {
-    fun test(name: String? = null, init: Test.() -> Unit) = initNode(Test(builder)) {
-        if (name != null) {
-            builder.addNode("@name", name)
-        }
-        init()
-    }
-}
-
-class Test(builder: IHDSMutator): BuilderNode(builder, "test") {
+class Test(builderToClone: IHDSMutator): BuilderNode(builderToClone, "test") {
     private val setupRequestFactory = DeclarativeRequestContainerImpl(builder, "setup")
     private val requestFactory = DeclarativeRequestContainerImpl(builder, "request")
     private val teardownRequestFactory = DeclarativeRequestContainerImpl(builder, "teardown")
@@ -55,22 +38,4 @@ class Test(builder: IHDSMutator): BuilderNode(builder, "test") {
     fun teardownInlineDelete(init: Request.() -> Unit = {}, lambda: InlineDeleteLambda) = teardownRequestFactory.inlineDelete(init, lambda)
 
     fun assert(init: (Assert.() -> Unit)) = initNode(Assert(builder), init)
-}
-
-class Assert(builder: IHDSMutator): BuilderNode(builder, "assert") {
-    fun isTrue() {
-        builder.addNode("true", null)
-    }
-    fun isFalse() {
-        builder.addNode("false", null)
-    }
-    fun isNull() {
-        builder.addNode("null", null)
-    }
-    fun isNotNull() {
-        builder.addNode("notNull", null)
-    }
-    fun stringEquals(value: String) {
-        builder.addNode("stringEquals", value)
-    }
 }
