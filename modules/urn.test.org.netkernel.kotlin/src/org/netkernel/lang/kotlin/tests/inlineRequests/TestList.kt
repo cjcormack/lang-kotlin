@@ -111,14 +111,20 @@ class TestList: XUnitTestList() {
 
     @XUnitTest("Inline NEW Test with Primary")
     fun Test.inlineNewTestWithPrimary() {
-        val req = requestInlineNew{
+        val req = requestInlineNew {
             response {
                 val item = sourcePrimary<IHDSDocument>()
 
                 Identifier(item.reader.firstValue("/item/id"))
             }
         }
-        req.argument("primary", "helloWorld")
+        req.argument("primary") {
+            literalHds {
+                node("item") {
+                    node("id", "HelloWorld")
+                }
+            }
+        }
 
         assert {
             stringEquals("HelloWorld")
