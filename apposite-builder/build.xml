@@ -2,14 +2,16 @@
 <project name="Lang-Kotlin" default="package">
 	<property file="build.properties"/>
 
-	<property name="package.version" value="1.1.1"/>
+	<property name="package.version" value="1.0.0"/>
 	<property name="package.name" value="lang-kotlin" />
 	<property name="package.description" value="Lang / Kotlin" />
 	<property name="push.repository" value="nknew"/>
 
 	<property name="module.name" value="urn.org.netkernel.lang.kotlin" />
 
-	<property name="gradle.built.dir" location="../build/${module.name}-1.0.0" />
+	<property name="module.path" location="../modules/${module.name}" />
+
+	<property name="gradle.built.dir" location="${module.path}/build/${module.name}-1.0.0" />
 	<property name="build.dir" location="build" />
 	<property name="build.copy.dir" location="${build.dir}/${module.name}" />
 	<property name="build.jar.dir" location="${build.dir}/jar" />

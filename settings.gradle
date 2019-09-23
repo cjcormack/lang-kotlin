@@ -1,4 +1,4 @@
 include (
-    ':modules:urn.org.netkernel.kotlin',
-    ':modules:urn.test.org.netkernel.kotlin'
+    ':modules:urn.org.netkernel.lang.kotlin',
+    ':modules:urn.test.org.netkernel.lang.kotlin'
 )

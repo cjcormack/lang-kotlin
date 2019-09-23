@@ -32,5 +32,5 @@ hs_err_pid*
 /apposite-builder/build.properties
 /apposite-builder/build/
 /gradle.properties
-/modules/urn.org.netkernel.kotlin/build/
-/modules/urn.test.org.netkernel.kotlin/build/
+/modules/urn.org.netkernel.lang.kotlin/build/
+/modules/urn.test.org.netkernel.lang.kotlin/build/
