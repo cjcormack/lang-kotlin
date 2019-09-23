@@ -42,4 +42,4 @@ dependencies {
   compileOnly group: 'urn.org.netkernel', name: 'mod.hds', version: '[1.5.1,)'
 }
 
-//jar.dependsOn(dokka)
+jar.dependsOn(dokka)

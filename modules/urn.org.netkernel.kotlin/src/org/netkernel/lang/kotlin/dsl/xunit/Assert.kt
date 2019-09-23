@@ -1,6 +1,8 @@
 package org.netkernel.lang.kotlin.dsl.xunit
 
 import org.netkernel.lang.kotlin.dsl.BuilderNode
+import org.netkernel.lang.kotlin.dsl.declarativeRequest.LiteralBuilder
+import org.netkernel.lang.kotlin.dsl.initNode
 import org.netkernel.mod.hds.IHDSMutator
 import kotlin.reflect.KClass
 
@@ -80,4 +82,13 @@ class Assert(builderToClone: IHDSMutator): BuilderNode(builderToClone, "assert")
     fun headerExists(headerExists: String) {
         builder.addNode("headerExists", headerExists)
     }
+    fun custom(definition: AssertDefinition, init: CustomAssert.() -> Unit = {}) = custom(definition.name, init)
+    fun custom(name: String, init: CustomAssert.() -> Unit = {})  = initNode(CustomAssert(builder, name), init)
+
+    fun custom(definition: AssertDefinition, value: String) = custom(definition.name, value)
+    fun custom(name: String, value: String)  = initNode(CustomAssert(builder, name)) {
+        builder.setValue(value)
+    }
 }
+
+class CustomAssert(builderToClone: IHDSMutator, name: String): LiteralBuilder(builderToClone, name)
