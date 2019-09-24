@@ -13,7 +13,7 @@ import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost
 class ScriptRuntimeAccessor: KotlinAccessor() {
     init {
         declareThreadSafe()
-        declareArgument(SourcedArgumentMetaImpl("operator", "Lambda to run", null, arrayOf<Class<*>>(InlineRequest::class.java)))
+        declareArgument(SourcedArgumentMetaImpl("operator", "Kotlin Script to run", null, arrayOf<Class<*>>(ScriptRepresentation::class.java)))
     }
 
     override fun DeleteRequestContext.onDelete() = runScript()
