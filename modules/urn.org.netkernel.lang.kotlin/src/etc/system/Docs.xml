@@ -12,24 +12,28 @@
 		<title>NetKernel's Kotlin™ Library</title>
 		<desc>A guide to the NetKernel library for Kotlin</desc>
 		<uri>res:/org/netkernel/lang/kotlin/doc/library.md</uri>
+		<category>language</category>
 	</doc>
 	<doc>
 		<id>doc:lang:kotlin:library:knkf</id>
 		<title>NetKernel Foundation API for Kotlin™</title>
 		<desc>A guide to the NetKernel Foundation for Kotlin (KNKF)</desc>
 		<uri>res:/org/netkernel/lang/kotlin/doc/library/knkf.md</uri>
+		<category>language</category>
 	</doc>
 	<doc>
 		<id>doc:lang:kotlin:library:dsls</id>
 		<title>Type-safe Builders (DSLs)</title>
 		<desc>A guide to the type-safe builders (DSLs) provided</desc>
 		<uri>res:/org/netkernel/lang/kotlin/doc/library/dsls.md</uri>
+		<category>language</category>
 	</doc>
 	<doc>
 		<id>doc:lang:kotlin:library:util</id>
 		<title>Utilities</title>
 		<desc>A guide to utilities provided by the Kotlin™ module</desc>
 		<uri>res:/org/netkernel/lang/kotlin/doc/library/util.md</uri>
+		<category>language</category>
 	</doc>
 
 	<doc>
@@ -37,6 +41,7 @@
 		<title>Kotlin™ Script Runtime</title>
 		<desc>A guide to using NetKernel's Kotlin Script runtime</desc>
 		<uri>res:/org/netkernel/lang/kotlin/doc/script.md</uri>
+		<category>doc runtime</category>
 	</doc>
 
 	<doc>
