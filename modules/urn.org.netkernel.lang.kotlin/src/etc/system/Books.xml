@@ -20,6 +20,7 @@
 				<item id="doc:lang:kotlin:script" title="Kotlin Script Runtime" />
 				<item id="doc:lang:kotlin:inlineRequests" title="Inline Requests" />
 				<item id="doc:lang:kotlin:xunit" title="XUnit Tests" />
+				<item id="doc:lang:kotlin:gettingStarted" title="Getting Started" />
 				<item id="doc:lang:kotlin:ide" title="IDE Support" />
 				<item id="doc:lang:kotlin:wiki" title="Kotlin Code Formatter" />
 				<item id="doc:lang:kotlin:license" title="License" />

@@ -67,6 +67,13 @@
 	</doc>
 
 	<doc>
+		<id>doc:lang:kotlin:gettingStarted</id>
+		<title>Getting Started</title>
+		<desc>A guide to getting started with Kotlin™ in NetKernel using Gradle</desc>
+		<uri>res:/org/netkernel/lang/kotlin/doc/gettingStarted.md</uri>
+	</doc>
+
+	<doc>
 		<id>doc:lang:kotlin:wiki</id>
 		<title>Kotlin™ Code Formatter</title>
 		<desc>A guide to the wiki macro for pretty printing Kotlin™ code</desc>
