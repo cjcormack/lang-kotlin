@@ -35,6 +35,13 @@
 						<argument name="class">org.netkernel.lang.kotlin.tests.dsl.hds.TestList</argument>
 					</request>
 				</endpoint>
+				<endpoint>
+					<grammar>res:/org/netkernel/lang/kotlin/tests/dsl/mapper/testList</grammar>
+					<request>
+						<identifier>active:java</identifier>
+						<argument name="class">org.netkernel.lang.kotlin.tests.dsl.mapper.TestList</argument>
+					</request>
+				</endpoint>
 			</config>
 			<space/>
 		</mapper>

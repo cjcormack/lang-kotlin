@@ -113,8 +113,8 @@ abstract class LiteralBuilder(builderToClone: IHDSMutator, hdsName: String): Bui
 }
 
 interface DeclarativeRequestContainer {
-    fun request(identifier: Identifier, init: Request.() -> Unit): Request
-    fun request(identifier: String, init: Request.() -> Unit): Request
+    fun request(identifier: Identifier, init: Request.() -> Unit = {}): Request
+    fun request(identifier: String, init: Request.() -> Unit = {}): Request
     fun inlineSource(init: Request.() -> Unit = {}, lambda: InlineSourceLambda): Request
     fun inlineSink(init: Request.() -> Unit = {}, lambda: InlineSinkLambda): Request
     fun inlineExists(init: Request.() -> Unit = {}, lambda: InlineExistsLambda): Request

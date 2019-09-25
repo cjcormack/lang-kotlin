@@ -10,4 +10,9 @@
 		<name>Kotlin Tests / DSLs / HDS</name>
 		<uri>res:/org/netkernel/lang/kotlin/tests/dsl/hds/testList</uri>
 	</test>
+	<test>
+		<id>urn:test:org:netkernel:lang:kotlin:dsl:mapper</id>
+		<name>Kotlin Tests / DSLs / Mapper Config</name>
+		<uri>res:/org/netkernel/lang/kotlin/tests/dsl/mapper/testList</uri>
+	</test>
 </tests>
