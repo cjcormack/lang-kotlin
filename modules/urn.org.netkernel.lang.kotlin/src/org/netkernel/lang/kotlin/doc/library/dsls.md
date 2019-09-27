@@ -23,7 +23,7 @@ val myHds = hds {
 }
 {/kotlin}
 
-See the [Dokka docs](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.dsl.hds/index.html) for more details.
+See the [Dokka docs](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.dsl.hds/index.html) for more details.
 
 ## Mapper Config
 
@@ -51,6 +51,6 @@ val myConfig = mapper {
 
 Various bits of Dokka documentation for the related builders are available:
 
-* [Mapper config](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.dsl.mapper/index.html),
-* [REST Overlay Meta data](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.dsl.rest-overlay/index.html),
-* [Grammars](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.dsl.grammar/index.html).
+* [Mapper config](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.dsl.mapper/index.html),
+* [REST Overlay Meta data](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.dsl.rest-overlay/index.html),
+* [Grammars](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.dsl.grammar/index.html).

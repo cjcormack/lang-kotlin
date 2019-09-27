@@ -3,9 +3,9 @@
 # XUnit Tests
 
 The NetKotlin module comes with some helpers for building XUnit TestLists. By subclassing
-[KotlinTestList](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.xunit/-kotlin-test-list/index.html)
-and annotating test methods with [KotlinTest](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.xunit/-kotlin-test/index.html).
-The method should either take a [Test](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.xunit/-test/index.html)
+[KotlinTestList](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.xunit/-kotlin-test-list/index.html)
+and annotating test methods with [KotlinTest](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.xunit/-kotlin-test/index.html).
+The method should either take a [Test](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.xunit/-test/index.html)
 as a receiver, or as the first parameter.
 
 {kotlin}

@@ -3,7 +3,7 @@
 {endpoint}KotlinScriptRuntime{/endpoint}
 
 The **active:kotlinScript** service runs a compiled Kotlin Script program. The script that runs will be a sub-type of
-[NetKernelKotlinScript](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.script/-net-kernel-kotlin-script/index.html).
+[NetKernelKotlinScript](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.script/-net-kernel-kotlin-script/index.html).
 
 The **context** property will be of the appropriate sub-type for the request's verb. There are two approaches for handling
 the **context** property:
@@ -43,26 +43,26 @@ in order to get working syntax highlighting.
 
 # SOURCE
 
-For a **SOURCE** request, the **context** will be a [SourceRequestContext](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.knkf.context/-source-request-context/index.html)
-and the type-safe function is [onSource(lazyOnSource: SourceRequestContext.() -> Unit)](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.script/-net-kernel-kotlin-script/on-source.html).
+For a **SOURCE** request, the **context** will be a [SourceRequestContext](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.knkf.context/-source-request-context/index.html)
+and the type-safe function is [onSource(lazyOnSource: SourceRequestContext.() -> Unit)](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.script/-net-kernel-kotlin-script/on-source.html).
 
 # SINK
 
-For a **SINK** request, the **context** will be a [SinkRequestContext](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.knkf.context/-sink-request-context/index.html)
-and the type-safe function is [onSink(lazyOnSink: SinkRequestContext.() -> Unit)](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.script/-net-kernel-kotlin-script/on-sink.html).
+For a **SINK** request, the **context** will be a [SinkRequestContext](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.knkf.context/-sink-request-context/index.html)
+and the type-safe function is [onSink(lazyOnSink: SinkRequestContext.() -> Unit)](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.script/-net-kernel-kotlin-script/on-sink.html).
 
 # EXISTS
 
-For a **EXISTS** request, the **context** will be a [ExistsRequestContext](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.knkf.context/-exists-request-context/index.html)
-and the type-safe function is [onExists(lazyOnExists: ExistsRequestContext.() -> Unit)](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.script/-net-kernel-kotlin-script/on-exists.html).
+For a **EXISTS** request, the **context** will be a [ExistsRequestContext](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.knkf.context/-exists-request-context/index.html)
+and the type-safe function is [onExists(lazyOnExists: ExistsRequestContext.() -> Unit)](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.script/-net-kernel-kotlin-script/on-exists.html).
 
 # NEW
 
-For a **NEW** request, the **context** will be a [NewRequestContext](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.knkf.context/-new-request-context/index.html)
-and the type-safe function is [onNew(lazyOnNew: NewRequestContext.() -> Unit)](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.script/-net-kernel-kotlin-script/on-new.html).
+For a **NEW** request, the **context** will be a [NewRequestContext](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.knkf.context/-new-request-context/index.html)
+and the type-safe function is [onNew(lazyOnNew: NewRequestContext.() -> Unit)](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.script/-net-kernel-kotlin-script/on-new.html).
 
 # DELETE
 
-For a **DELETE** request, the **context** will be a [DeleteRequestContext](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.knkf.context/-delete-request-context/index.html)
-and the type-safe function is [onDelete(lazyOnDelete: DeleteRequestContext.() -> Unit)](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.script/-net-kernel-kotlin-script/on-delete.html).
+For a **DELETE** request, the **context** will be a [DeleteRequestContext](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.knkf.context/-delete-request-context/index.html)
+and the type-safe function is [onDelete(lazyOnDelete: DeleteRequestContext.() -> Unit)](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.script/-net-kernel-kotlin-script/on-delete.html).
 

@@ -3,12 +3,12 @@
 # Utilities
 
 There are various utilities available in the
-[org.netkernel.lang.kotlin.util package](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.util/index.html).
+[org.netkernel.lang.kotlin.util package](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.util/index.html).
 
 ## IHDSReader extension functions
 
 There are a couple of extension functions for IHDSReader. See the
-[Dokka docs](../../../dokka/lang-kotlin/org.netkernel.lang.kotlin.util/org.netkernel.mod.hds.-i-h-d-s-reader/index.html)
+[Dokka docs](../../../dokka/urn.org.netkernel.lang.kotlin/org.netkernel.lang.kotlin.util/org.netkernel.mod.hds.-i-h-d-s-reader/index.html)
 for more information.
 
 ### Type-safe getFirstValue

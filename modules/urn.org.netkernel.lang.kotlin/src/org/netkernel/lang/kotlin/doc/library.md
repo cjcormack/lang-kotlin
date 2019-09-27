@@ -37,4 +37,4 @@ fun <R> RequestContext.source(identifier: Identifier, representationClass: Class
 ## Dokka (Documentation)
 
 Documentation has been generated with [Dokka](https://github.com/Kotlin/dokka) for the Kotlin module, it is available at
-[/dokka/lang-kotlin/index.html](../../../dokka/lang-kotlin/index.html).
+[/dokka/lang-kotlin/index.html](../../../dokka/urn.org.netkernel.lang.kotlin/index.html).
