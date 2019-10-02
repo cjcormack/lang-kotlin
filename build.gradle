@@ -37,8 +37,6 @@ allprojects {
         }
     }
 
-    def nk_path = project.properties['nk_path'] ?: "../NKSE-5.2.1/"
-
     compileKotlin {
         kotlinOptions{
             jvmTarget = "1.8"
