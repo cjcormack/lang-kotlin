@@ -56,7 +56,13 @@ abstract class RequestContext(override val nkfContext: INKFRequestContext): Base
      * Issue an EXISTS request and return the response.
      */
     fun exists(identifier: Identifier, init: ExistsRequest.() -> Unit): Boolean {
-        return existsRequest(identifier, init).issue()
+        val req = try {
+            existsRequest(identifier, init)
+        } catch (e: NKFException) {
+            // an NKFException at this point is an indication that the requested endpoint doesn't exist.
+            return false
+        }
+        return req.issue()
     }
 
     /**
