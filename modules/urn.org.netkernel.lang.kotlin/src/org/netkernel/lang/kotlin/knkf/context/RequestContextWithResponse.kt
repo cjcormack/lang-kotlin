@@ -26,7 +26,7 @@ abstract class RequestContextWithResponse<R>(nkfContext: INKFRequestContext): Re
     }
 
     fun responseFromRequest(request: RequestWithResponse<R>): Response<R> {
-        return Response(nkfContext.createResponseFrom(request.nkfRequest))
+        return Response(nkfContext.createResponseFrom(request.issueForResponse().nkfResponse))
     }
 
     fun responseFromRequest(init: () -> RequestWithResponse<R>): Response<R> {
