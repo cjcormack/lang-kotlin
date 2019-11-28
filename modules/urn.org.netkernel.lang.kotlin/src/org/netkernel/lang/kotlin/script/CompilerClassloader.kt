@@ -12,17 +12,24 @@ import java.net.URLClassLoader
 internal fun INKFRequestContext.getKotlinCompilerClassLoader(): URLClassLoader {
     val urls = ArrayList<URL>()
 
+    val visitedClassLoaders = HashMap<Int, ClassLoader>()
+
     generateSequence(this.kernelContext.thisKernelRequest.requestScope, { it.parent }).forEach { scope ->
         val spaceClassLoader = scope.space.classLoader
         if (spaceClassLoader != null) {
-            urls.addAll(scope.space.classLoader.getJarUrls())
+            urls.addAll(scope.space.classLoader.getJarUrls(visitedClassLoaders))
         }
     }
 
     return URLClassLoader(urls.toTypedArray())
 }
 
-internal fun ClassLoader.getJarUrls(): List<URL> {
+internal fun ClassLoader.getJarUrls(visitedClassLoaders: MutableMap<Int, ClassLoader>): List<URL> {
+    if (visitedClassLoaders.containsKey(this.hashCode())) {
+        return emptyList()
+    }
+    visitedClassLoaders[this.hashCode()] = this
+
     val urls = when (this) {
         is URLClassLoader -> this.urLs.toList()
         is DynamicURLClassLoader -> this.getUrls()
@@ -34,14 +41,16 @@ internal fun ClassLoader.getJarUrls(): List<URL> {
     val parentCl = this.parent
     // TODO workout a neater way of prevent this infinite recursion!
     if (parentCl != null && !parentCl.javaClass.name.contains("jdk")) {
-        urls.addAll(parentCl.getJarUrls())
+        urls.addAll(parentCl.getJarUrls(visitedClassLoaders))
     }
 
+
     if (this is SpaceClassLoader) {
+
         this.getImports().forEach {
-            urls.addAll(it.getJarUrls())
+            urls.addAll(it.getJarUrls(visitedClassLoaders))
         }
-        urls.addAll(this.parentClassLoader?.getJarUrls() ?: emptyList())
+        urls.addAll(this.parentClassLoader?.getJarUrls(visitedClassLoaders) ?: emptyList())
     }
 
     return urls
