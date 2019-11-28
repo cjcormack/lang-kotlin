@@ -1,7 +1,10 @@
 buildscript {
     ext {
         versions = [
-                "kotlin": '1.3.50'
+                // this is currently a dev build to work around a classloader issue (when using Kotlin Script from Polestar
+                // that appears to have been resolved on Kotlin's  master branch (the fix will hopefully be in 1.3.70).
+                // Once 1.3.70 is released, we should revalidate and revert this to using a stable release).
+                "kotlin": '1.3.70-dev-2153'
         ]
     }
 
@@ -21,7 +24,7 @@ buildscript {
 }
 
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.3.50'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.60'
     id 'idea'
 }
 
@@ -32,6 +35,9 @@ allprojects {
         mavenCentral()
         gradlePluginPortal()
         jcenter()
+        maven {
+            url "https://dl.bintray.com/kotlin/kotlin-dev/"
+        }
         maven {
             url "http://maven.netkernel.org/netkernel-maven"
         }

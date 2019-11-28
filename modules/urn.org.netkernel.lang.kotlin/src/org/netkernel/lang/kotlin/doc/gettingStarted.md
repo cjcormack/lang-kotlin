@@ -28,7 +28,7 @@ buildscript {
 
 plugins {
     id 'idea'
-    id 'org.jetbrains.kotlin.jvm' version '1.3.50'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.60'
 }
 
 apply plugin: 'netkernel'

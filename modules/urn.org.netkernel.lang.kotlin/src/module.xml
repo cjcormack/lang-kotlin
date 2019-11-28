@@ -29,7 +29,12 @@
 			<grammar>
 				<active>
 					<identifier>active:kotlinScript</identifier>
-					<argument name="operator" />
+					<argument name="operator" desc="Kotlin Script to run">
+						<representation>org.netkernel.lang.kotlin.script.ScriptRepresentation</representation>
+					</argument>
+					<argument name="scriptRuntimeSettings" min="0" max="1" desc="Optional configuration for the runtime">
+						<representation>org.netkernel.lang.kotlin.script.NetKernelScriptRuntimeSettings</representation>
+					</argument>
 					<varargs />
 				</active>
 			</grammar>
@@ -68,6 +73,12 @@
 			<id>KotlinScriptCompiledRepresentation</id>
 			<class>org.netkernel.lang.kotlin.script.ScriptRepresentation</class>
 			<description>Compiled form of Kotlin Script</description>
+		</representation>
+
+		<representation>
+			<id>NetKernelScriptRuntimeSettings</id>
+			<class>org.netkernel.lang.kotlin.script.NetKernelScriptRuntimeSettings</class>
+			<description>Custom runtime configuration for Kotlin Scripts</description>
 		</representation>
 
 		<transreptor>
