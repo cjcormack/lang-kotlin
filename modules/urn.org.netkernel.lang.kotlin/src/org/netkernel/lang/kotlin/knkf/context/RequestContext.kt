@@ -5,6 +5,7 @@ import org.netkernel.lang.kotlin.knkf.LogLevel
 import org.netkernel.lang.kotlin.knkf.context.request.*
 import org.netkernel.lang.kotlin.knkf.context.response.ReadOnlyResponse
 import org.netkernel.layer0.nkf.INKFRequestContext
+import org.netkernel.layer0.nkf.NKFException
 import java.io.PrintWriter
 import java.io.Serializable
 import java.io.StringWriter
@@ -21,21 +22,21 @@ abstract class RequestContext(override val nkfContext: INKFRequestContext): Base
     /**
      * Issue a DELETE request and return the response.
      */
-    fun delete(identifier: Identifier, init: DeleteRequest.() -> Unit): Boolean {
+    fun delete(identifier: Identifier, init: DeleteRequest.() -> Unit = {}): Boolean {
         return deleteRequest(identifier, init).issue()
     }
 
     /**
      * Issue a DELETE request and return the response.
      */
-    fun delete(identifier: String, init: DeleteRequest.() -> Unit): Boolean {
-        return deleteRequest(Identifier(identifier), init).issue()
+    fun delete(identifier: String, init: DeleteRequest.() -> Unit = {}): Boolean {
+        return delete(Identifier(identifier), init)
     }
 
     /**
      * Create a new DELETE request.
      */
-    fun deleteRequest(identifier: Identifier, init: DeleteRequest.() -> Unit): DeleteRequest {
+    fun deleteRequest(identifier: Identifier, init: DeleteRequest.() -> Unit = {}): DeleteRequest {
         val request = DeleteRequest(this, identifier)
         request.init()
 
@@ -45,17 +46,14 @@ abstract class RequestContext(override val nkfContext: INKFRequestContext): Base
     /**
      * Create a new DELETE request.
      */
-    fun deleteRequest(identifier: String, init: DeleteRequest.() -> Unit): DeleteRequest {
-        val request = DeleteRequest(this, Identifier(identifier))
-        request.init()
-
-        return request
+    fun deleteRequest(identifier: String, init: DeleteRequest.() -> Unit = {}): DeleteRequest {
+        return deleteRequest(Identifier(identifier), init)
     }
 
     /**
      * Issue an EXISTS request and return the response.
      */
-    fun exists(identifier: Identifier, init: ExistsRequest.() -> Unit): Boolean {
+    fun exists(identifier: Identifier, init: ExistsRequest.() -> Unit = {}): Boolean {
         val req = try {
             existsRequest(identifier, init)
         } catch (e: NKFException) {
@@ -68,14 +66,14 @@ abstract class RequestContext(override val nkfContext: INKFRequestContext): Base
     /**
      * Issue an EXISTS request and return the response.
      */
-    fun exists(identifier: String, init: ExistsRequest.() -> Unit): Boolean {
-        return existsRequest(Identifier(identifier), init).issue()
+    fun exists(identifier: String, init: ExistsRequest.() -> Unit = {}): Boolean {
+        return exists(Identifier(identifier), init)
     }
 
     /**
      * Create an EXISTS request.
      */
-    fun existsRequest(identifier: Identifier, init: ExistsRequest.() -> Unit): ExistsRequest {
+    fun existsRequest(identifier: Identifier, init: ExistsRequest.() -> Unit = {}): ExistsRequest {
         val request = ExistsRequest(this, identifier)
         request.init()
 
@@ -85,11 +83,8 @@ abstract class RequestContext(override val nkfContext: INKFRequestContext): Base
     /**
      * Create an EXISTS request.
      */
-    fun existsRequest(identifier: String, init: ExistsRequest.() -> Unit): ExistsRequest {
-        val request = ExistsRequest(this, Identifier(identifier))
-        request.init()
-
-        return request
+    fun existsRequest(identifier: String, init: ExistsRequest.() -> Unit = {}): ExistsRequest {
+        return existsRequest(Identifier(identifier), init)
     }
 
     /**
