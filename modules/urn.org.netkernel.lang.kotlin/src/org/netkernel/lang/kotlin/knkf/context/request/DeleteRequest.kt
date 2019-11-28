@@ -12,6 +12,6 @@ class DeleteRequest internal constructor(
 ): RequestWithResponse<Boolean>(
         context,
         nkfRequest,
-        Boolean::class.java,
+        Boolean::class.javaObjectType,
         Verb.DELETE
 )
