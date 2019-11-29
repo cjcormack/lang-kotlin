@@ -1,4 +1,6 @@
 include (
-    ':modules:urn.org.netkernel.lang.kotlin',
+    ':modules:lang.kotlin',
     ':modules:urn.test.org.netkernel.lang.kotlin'
 )
+
+project(":modules:lang.kotlin").projectDir = file("modules/urn.org.netkernel.lang.kotlin")
