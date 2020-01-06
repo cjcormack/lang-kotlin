@@ -28,15 +28,14 @@ plugins {
     id 'idea'
 }
 
-allprojects {
-    project.group = "urn.org.netkernel"
 
+allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
         gradlePluginPortal()
         jcenter()
-        maven { // remove this once we're not using a dev build of Kotlin
+        maven {
             url "https://dl.bintray.com/kotlin/kotlin-dev/"
         }
         maven {

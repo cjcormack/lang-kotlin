@@ -1,11 +1,9 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm'
     id 'org.jetbrains.dokka' version '0.9.18'
-    id 'maven-publish'
 }
 
 apply plugin: 'netkernel'
-apply plugin: 'maven-publish'
 
 sourceSets["main"].java.srcDirs("src")
 sourceSets["main"].kotlin.srcDirs("src")
@@ -13,25 +11,6 @@ sourceSets["main"].resources.srcDirs("src")
 
 sourceSets["main"].java.exclude("**/*.kts")
 sourceSets["main"].kotlin.exclude("**/*.kts")
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-
-            // tweak the generated pom to not include dependencies
-            pom.withXml {
-                Node pomNode = asNode()
-                pomNode.dependencies.'*'.each() {
-                    it.parent().remove(it)
-                }
-            }
-        }
-    }
-    repositories {
-        mavenLocal()
-    }
-}
 
 def nk_path = project.properties['nk_path'] ?: "../NKSE-5.2.1/"
 

@@ -27,7 +27,7 @@ netkernel {
 
 //Additional Compile Dependencies
 dependencies {
-  compileOnly project(':modules:lang.kotlin')
+  compileOnly project(':modules:urn.org.netkernel.lang.kotlin')
 
   compileOnly group: 'urn.org.netkernel', name: 'mod.hds', version: '[1.5.1,)'
 }
