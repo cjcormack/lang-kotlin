@@ -6,9 +6,21 @@ import org.netkernel.lang.kotlin.dsl.initNode
 import org.netkernel.lang.kotlin.inline.*
 import org.netkernel.lang.kotlin.knkf.Identifier
 import org.netkernel.lang.kotlin.knkf.Verb
+import org.netkernel.mod.hds.HDSFactory
 import org.netkernel.mod.hds.IHDSDocument
 import org.netkernel.mod.hds.IHDSMutator
 import kotlin.reflect.KClass
+
+fun declarativeRequest(identifier: String, init: Request.() -> Unit = {}): IHDSDocument = declarativeRequest(Identifier(identifier), init)
+
+fun declarativeRequest(identifier: Identifier, init: Request.() -> Unit = {}): IHDSDocument {
+    val declarativeRequest = initNode(Request(HDSFactory.newDocument()), {
+        builder.addNode("identifier", identifier.identifier)
+        init()
+    })
+
+    return declarativeRequest.builder.toDocument(false)
+}
 
 class Request(builderToClone: IHDSMutator, hdsName: String = "request"): BuilderNode(builderToClone, hdsName) {
     fun verb(verb: Verb) {
