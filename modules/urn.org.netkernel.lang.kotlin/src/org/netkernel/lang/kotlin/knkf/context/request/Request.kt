@@ -77,7 +77,12 @@ abstract class Request<R> internal constructor(val context: RequestContext, val 
      * Issue this request, and return the response.
      */
     fun issue(): R {
-        val response = context.nkfContext.issueRequest(nkfRequest)
+        val response = if (representationClass == Unit::class.java) {
+            context.nkfContext.issueRequest(nkfRequest)
+            Unit
+        } else {
+            context.nkfContext.issueRequest(nkfRequest)
+        }
 
         check(representationClass.isInstance(response))
 
