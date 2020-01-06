@@ -5,6 +5,22 @@ import org.netkernel.layer0.nkf.INKFRequestContext
 import org.netkernel.module.standard.endpoint.StandardAccessorImpl
 
 abstract class KotlinAccessor: StandardAccessorImpl() {
+    init {
+        declareThreadSafe()
+    }
+
+    final override fun declareThreadSafe() {
+        super.declareThreadSafe()
+    }
+
+    final override fun postCommission(context: INKFRequestContext) {
+        GeneralRequestContext(context).postCommission()
+    }
+
+    final override fun preDecommission(context: INKFRequestContext) {
+        GeneralRequestContext(context).preDecommission()
+    }
+
     final override fun onNew(context: INKFRequestContext) {
         NewRequestContext(context).onNew()
     }
@@ -25,9 +41,9 @@ abstract class KotlinAccessor: StandardAccessorImpl() {
         ExistsRequestContext(context).onExists()
     }
 
-    final override fun declareThreadSafe() {
-        super.declareThreadSafe()
-    }
+    open fun RequestContext.postCommission() {}
+
+    open fun RequestContext.preDecommission() {}
 
     open fun NewRequestContext.onNew() {
         throw NotImplementedError()
@@ -49,4 +65,3 @@ abstract class KotlinAccessor: StandardAccessorImpl() {
         throw NotImplementedError()
     }
 }
-
