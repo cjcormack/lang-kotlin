@@ -42,6 +42,13 @@ dependencies {
   compile "org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable:${versions.kotlin}"
 
   compileOnly group: 'urn.org.netkernel', name: 'mod.hds', version: '[1.5.1,)'
+  compileOnly group: 'urn.org.netkernel', name: 'ext.layer1', version: '[1.60.26,)'
 }
 
 jar.dependsOn(dokka)
+
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
+    }
+}
