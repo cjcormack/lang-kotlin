@@ -7,7 +7,7 @@ annotation class HdsBuilderMarker
 
 @HdsBuilderMarker
 abstract class BuilderNode(builderToClone: IHDSMutator, internal val hdsNames: List<String>) {
-    internal val builder: IHDSMutator = if (builderToClone.cursorXPath != "") {
+    val builder: IHDSMutator = if (builderToClone.cursorXPath != "") {
         builderToClone.getFirstNode(builderToClone.cursorXPath)
     } else {
         builderToClone
