@@ -6,6 +6,8 @@ import org.netkernel.layer0.nkf.INKFRequest
 
 abstract class RequestWithResponse<R> internal constructor(context: RequestContext, nkfRequest: INKFRequest, representationClass: Class<R>, verb: Verb? = null): Request<R>(context, nkfRequest, representationClass, verb) {
     init {
-        nkfRequest.setRepresentationClass(representationClass)
+        if (representationClass != Unit::class.java) {
+            nkfRequest.setRepresentationClass(representationClass)
+        }
     }
 }

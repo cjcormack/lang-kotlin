@@ -77,14 +77,11 @@ abstract class Request<R> internal constructor(val context: RequestContext, val 
      * Issue this request, and return the response.
      */
     fun issue(): R {
-        val response = if (representationClass == Unit::class.java) {
-            context.nkfContext.issueRequest(nkfRequest)
-            Unit
-        } else {
-            context.nkfContext.issueRequest(nkfRequest)
-        }
+        val response = context.nkfContext.issueRequest(nkfRequest)
 
-        check(representationClass.isInstance(response))
+        if (representationClass != Unit::class.java && representationClass != Any::class.java) {
+            check(representationClass.isInstance(response))
+        }
 
         @Suppress("UNCHECKED_CAST")
         return response as R
@@ -93,7 +90,10 @@ abstract class Request<R> internal constructor(val context: RequestContext, val 
     fun issueForResponse(): ReadOnlyResponse<R> {
         val response = context.nkfContext.issueRequestForResponse(nkfRequest)
 
-        check(representationClass.isInstance(response.representation))
+        // TODO we need to handle nullable classifiers here
+        if (representationClass != Unit::class.java && representationClass != Any::class.java) {
+            check(representationClass.isInstance(response.representation)) {"Response is not a ${representationClass.canonicalName}, but is a ${response.representation?.javaClass}"}
+        }
 
         @Suppress("UNCHECKED_CAST")
         return ReadOnlyResponse(response as INKFResponseReadOnly<R>)
