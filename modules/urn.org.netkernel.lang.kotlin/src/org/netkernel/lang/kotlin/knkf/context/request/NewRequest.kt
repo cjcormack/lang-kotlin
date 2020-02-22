@@ -33,3 +33,26 @@ fun <P> RequestContext.newRequest(identifier: Identifier, primaryClass: Class<P>
 fun <P> RequestContext.new(identifier: Identifier, primaryClass: Class<P>, init: NewRequest<P>.() -> Unit = {}): Identifier {
     return newRequest(identifier, primaryClass, init).issue()
 }
+
+class NewRequestToEndpoint<P> internal constructor(
+        context: RequestContext,
+        endpointId: String,
+        override val primaryClass: Class<P>,
+        nkfRequest: INKFRequest = context.nkfContext.createRequestToEndpoint(endpointId)
+) : RequestWithResponse<Identifier>(
+        context,
+        nkfRequest,
+        Identifier::class.java,
+        Verb.NEW
+), RequestWithPrimary<P> by RequestWithPrimaryImpl(context, nkfRequest, primaryClass)
+
+fun <P> RequestContext.newRequestToEndpoint(endpointId: String, primaryClass: Class<P>, init: NewRequestToEndpoint<P>.() -> Unit = {}): NewRequestToEndpoint<P> {
+    val request = NewRequestToEndpoint<P>(this, endpointId, primaryClass)
+    request.init()
+
+    return request
+}
+
+fun <P> RequestContext.newToEndpoint(endpointId: String, primaryClass: Class<P>, init: NewRequestToEndpoint<P>.() -> Unit = {}): Identifier {
+    return newRequestToEndpoint(endpointId, primaryClass, init).issue()
+}

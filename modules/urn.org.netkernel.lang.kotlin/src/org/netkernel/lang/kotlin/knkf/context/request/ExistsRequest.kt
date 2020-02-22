@@ -15,3 +15,14 @@ class ExistsRequest internal constructor(
         Boolean::class.javaObjectType,
         Verb.EXISTS
 )
+
+class ExistsRequestToEndpoint internal constructor(
+        context: RequestContext,
+        endpointId: String,
+        nkfRequest: INKFRequest = context.nkfContext.createRequestToEndpoint(endpointId)
+): RequestWithResponse<Boolean>(
+        context,
+        nkfRequest,
+        Boolean::class.javaObjectType,
+        Verb.EXISTS
+)

@@ -15,3 +15,14 @@ class DeleteRequest internal constructor(
         Boolean::class.javaObjectType,
         Verb.DELETE
 )
+
+class DeleteRequestToEndpoint internal constructor(
+        context: RequestContext,
+        endpointId: String,
+        nkfRequest: INKFRequest = context.nkfContext.createRequestToEndpoint(endpointId)
+): RequestWithResponse<Boolean>(
+        context,
+        nkfRequest,
+        Boolean::class.javaObjectType,
+        Verb.DELETE
+)

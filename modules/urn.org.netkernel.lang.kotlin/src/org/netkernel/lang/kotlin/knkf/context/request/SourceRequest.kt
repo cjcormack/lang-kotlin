@@ -28,3 +28,21 @@ fun <R> RequestContext.sourceRequest(identifier: Identifier, representationClass
 fun <R> RequestContext.source(identifier: Identifier, representationClass: Class<R>, init: SourceRequest<R>.() -> Unit = {}): R {
     return sourceRequest(identifier, representationClass, init).issue()
 }
+
+class SourceRequestToEndpoint<R>(
+        context: RequestContext,
+        endpointId: String,
+        representationClass: Class<R>,
+        nkfRequest: INKFRequest = context.nkfContext.createRequestToEndpoint(endpointId)
+): RequestWithResponse<R>(context, nkfRequest, representationClass, Verb.SOURCE)
+
+fun <R> RequestContext.sourceRequestToEndpoint(endpointId: String, representationClass: Class<R>, init: SourceRequestToEndpoint<R>.() -> Unit = {}): SourceRequestToEndpoint<R> {
+    val request = SourceRequestToEndpoint(this, endpointId, representationClass)
+    request.init()
+
+    return request
+}
+
+fun <R> RequestContext.sourceToEndpoint(endpointId: String, representationClass: Class<R>, init: SourceRequestToEndpoint<R>.() -> Unit = {}): R {
+    return sourceRequestToEndpoint(endpointId, representationClass, init).issue()
+}

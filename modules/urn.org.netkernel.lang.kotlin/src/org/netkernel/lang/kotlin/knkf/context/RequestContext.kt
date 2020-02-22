@@ -44,10 +44,20 @@ abstract class RequestContext(override val nkfContext: INKFRequestContext): Base
     }
 
     /**
-     * Create a new DELETE request.
+     * Issue a DELETE request to the specified endpoint and return the response.
      */
-    fun deleteRequest(identifier: String, init: DeleteRequest.() -> Unit = {}): DeleteRequest {
-        return deleteRequest(Identifier(identifier), init)
+    fun deleteToEndpoint(endpointId: String, init: DeleteRequestToEndpoint.() -> Unit = {}): Boolean {
+        return deleteRequestToEndpoint(endpointId, init).issue()
+    }
+
+    /**
+     * Create a new DELETE request to the specified endpoint.
+     */
+    fun deleteRequestToEndpoint(endpointId: String, init: DeleteRequestToEndpoint.() -> Unit = {}): DeleteRequestToEndpoint {
+        val request = DeleteRequestToEndpoint(this, endpointId)
+        request.init()
+
+        return request
     }
 
     /**
@@ -88,6 +98,29 @@ abstract class RequestContext(override val nkfContext: INKFRequestContext): Base
     }
 
     /**
+     * Issue an EXISTS request to the specified endpoint and return the response.
+     */
+    fun existsToEndpoint(endpointId: String, init: ExistsRequestToEndpoint.() -> Unit = {}): Boolean {
+        val req = try {
+            existsRequestToEndpoint(endpointId, init)
+        } catch (e: NKFException) {
+            // an NKFException at this point is an indication that the requested endpoint doesn't exist.
+            return false
+        }
+        return req.issue()
+    }
+
+    /**
+     * Create an EXISTS request to the specified endpoint.
+     */
+    fun existsRequestToEndpoint(endpointId: String, init: ExistsRequestToEndpoint.() -> Unit = {}): ExistsRequestToEndpoint {
+        val request = ExistsRequestToEndpoint(this, endpointId)
+        request.init()
+
+        return request
+    }
+
+    /**
      * Issue a NEW request and return the response.
      */
     inline fun <reified P> new(identifier: Identifier, noinline init: NewRequest<P>.() -> Unit = {}): Identifier {
@@ -113,6 +146,20 @@ abstract class RequestContext(override val nkfContext: INKFRequestContext): Base
      */
     inline fun <reified P> newRequest(identifier: String, noinline init: NewRequest<P>.() -> Unit = {}): NewRequest<P> {
         return newRequest(Identifier(identifier), P::class.java, init)
+    }
+
+    /**
+     * Issue a NEW request to the specified endpoint and return the response.
+     */
+    inline fun <reified P> newToEndpoint(endpointId: String, noinline init: NewRequestToEndpoint<P>.() -> Unit = {}): Identifier {
+        return newToEndpoint(endpointId, P::class.java, init)
+    }
+
+    /**
+     * Create a NEW request to the specified endpoint.
+     */
+    inline fun <reified P> newRequestToEndpoint(endpointId: String, noinline init: NewRequestToEndpoint<P>.() -> Unit = {}): NewRequestToEndpoint<P> {
+        return newRequestToEndpoint(endpointId, P::class.java, init)
     }
 
     /**
@@ -144,6 +191,20 @@ abstract class RequestContext(override val nkfContext: INKFRequestContext): Base
     }
 
     /**
+     * Issue a SINK request to the specified endpoint.
+     */
+    inline fun <reified P> sinkToEndpoint(endpointId: String, noinline init: SinkRequestToEndpoint<P>.() -> Unit = {}) {
+        return sinkToEndpoint(endpointId, P::class.java, init)
+    }
+
+    /**
+     * Create a SINK request to the specified endpoint.
+     */
+    inline fun <reified P> sinkRequestToEndpoint(endpointId: String, noinline init: SinkRequestToEndpoint<P>.() -> Unit = {}): SinkRequestToEndpoint<P> {
+        return sinkRequestToEndpoint(endpointId, P::class.java, init)
+    }
+
+    /**
      * Issue a SOURCE request and return the response.
      */
     inline fun <reified R> source(identifier: Identifier, noinline init: SourceRequest<R>.() -> Unit = {}): R {
@@ -169,6 +230,20 @@ abstract class RequestContext(override val nkfContext: INKFRequestContext): Base
      */
     inline fun <reified R> source(identifier: String, noinline init: SourceRequest<R>.() -> Unit = {}): R {
         return source(Identifier(identifier), R::class.java, init)
+    }
+
+    /**
+     * Issue a SOURCE request to the specified endpoint and return the response.
+     */
+    inline fun <reified R> sourceToEndpoint(endpointId: String, noinline init: SourceRequestToEndpoint<R>.() -> Unit = {}): R {
+        return sourceToEndpoint(endpointId, R::class.java, init)
+    }
+
+    /**
+     * Create a SOURCE request to the specified endpoint.
+     */
+    inline fun <reified R> sourceRequestToEndpoint(endpointId: String, noinline init: SourceRequestToEndpoint<R>.() -> Unit = {}): SourceRequestToEndpoint<R> {
+        return sourceRequestToEndpoint(endpointId, R::class.java, init)
     }
 
     /**
