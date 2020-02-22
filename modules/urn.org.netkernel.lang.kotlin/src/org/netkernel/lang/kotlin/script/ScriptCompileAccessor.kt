@@ -1,0 +1,18 @@
+package org.netkernel.lang.kotlin.script
+
+import org.netkernel.lang.kotlin.knkf.context.SourceRequestContext
+import org.netkernel.layer0.util.RequestScopeClassLoader
+
+class ScriptCompileAccessor: BaseScriptAccessor() {
+    override fun SourceRequestContext.onSource() {
+        val cl = RequestScopeClassLoader(nkfContext.kernelContext.requestScope)
+        Thread.currentThread().contextClassLoader = cl
+
+        val script = source<String>("arg:operator")
+
+        val kotlinScriptConfig = loadKotlinScriptConfig()
+        compileKotlin(kotlinScriptConfig.scriptConfiguration, script)
+
+        response(true)
+    }
+}
