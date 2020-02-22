@@ -10,12 +10,12 @@ abstract class HdsNode(builderToClone: IHDSMutator, hdsName: String): BuilderNod
     fun node(name: String, init: HdsElement.() -> Any) = initNode(HdsElement(builder, name)) {
         val res = init()
 
-        if (res !is BuilderNode) {
+        if (res !is BuilderNode && res !is IHDSMutator && res !is Unit) {
             this.builder.setValue(res)
         }
     }
 
-    fun node(name: String, value: Any): HdsElement {
+    fun node(name: String, value: Any?): HdsElement {
         builder.addNode(name, value)
 
         return HdsElement(builder, name)
