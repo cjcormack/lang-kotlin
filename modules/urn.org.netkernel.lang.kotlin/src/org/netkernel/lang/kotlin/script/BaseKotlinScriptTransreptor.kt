@@ -37,7 +37,7 @@ internal fun RequestContext.compileKotlin(scriptCompilationConfiguration: Script
     return try {
         compiledScriptResult.valueOrThrow()
     } catch (e: Exception) {
-        throw NetKernelKotlinScriptException(report)
+        throw NetKernelKotlinScriptCompileException(report)
     }
 }
 

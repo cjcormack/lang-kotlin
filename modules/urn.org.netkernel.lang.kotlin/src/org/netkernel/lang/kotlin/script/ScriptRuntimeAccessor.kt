@@ -3,6 +3,8 @@ package org.netkernel.lang.kotlin.script
 import kotlinx.coroutines.runBlocking
 import org.netkernel.lang.kotlin.knkf.context.*
 import org.netkernel.layer0.util.RequestScopeClassLoader
+import kotlin.script.experimental.api.ResultValue
+import kotlin.script.experimental.api.valueOrThrow
 import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost
 
 class ScriptRuntimeAccessor: BaseScriptAccessor() {
@@ -38,6 +40,13 @@ class ScriptRuntimeAccessor: BaseScriptAccessor() {
             }
 
             log(it.severity.getLogLevel(), "${it.message} ${it.location}")
+        }
+
+        val result = evalResult.valueOrThrow()
+
+        val returnValue = result.returnValue
+        if (returnValue is ResultValue.Error) {
+            throw returnValue.error
         }
     }
 }
