@@ -163,4 +163,60 @@ class TestList: XUnitTestList() {
             }
         }
     }
+
+    @XUnitTest("nodeAfterTree")
+    fun Test.nodeAfterTree()  {
+        requestInlineSource {
+            response {
+                hds {
+                    println("1: ${builder.cursorXPath}")
+                    node("parent1") {
+                        node("child1", "value")
+                    }
+                    println("2: ${builder.cursorXPath}")
+                    node("parent2","value")
+                }
+            }
+        }
+        assert {
+            hdsSchematron {
+                schema("urn:test:kotlin:nodeAfterTree") {
+                    pattern {
+                        rule("/") {
+                            assert("parent1", "'parent1' expected to exist at root")
+                            assert("parent2", "'parent2' expected to exist at root")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @XUnitTest("nodeAfterTreeInRoot")
+    fun Test.nodeAfterTreeInRoot()  {
+        requestInlineSource {
+            response {
+                hds {
+                    node("root") {
+                        node("parent1") {
+                            node("child1", "value")
+                        }
+                        node("parent2","value")
+                    }
+                }
+            }
+        }
+        assert {
+            hdsSchematron {
+                schema("urn:test:kotlin:nodeAfterTreeInRoot") {
+                    pattern {
+                        rule("/root") {
+                            assert("parent1", "'parent1' expected to exist at root")
+                            assert("parent2", "'parent2' expected to exist at root")
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
