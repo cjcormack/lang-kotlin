@@ -14,7 +14,7 @@ import kotlin.script.experimental.jvm.dependenciesFromClassloader
 import kotlin.script.experimental.jvm.jvm
 import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost
 
-internal fun RequestContext.compileKotlin(scriptCompilationConfiguration: ScriptCompilationConfiguration, script: String): CompiledScript<*> {
+internal fun RequestContext.compileKotlin(scriptCompilationConfiguration: ScriptCompilationConfiguration, script: String): Pair<CompiledScript<*>, List<ScriptDiagnostic>> {
     val compilationConfiguration = ScriptCompilationConfiguration(listOf(scriptCompilationConfiguration)) {
         jvm {
             dependenciesFromClassloader(classLoader = nkfContext.getKotlinCompilerClassLoader(), wholeClasspath = true)
@@ -34,8 +34,8 @@ internal fun RequestContext.compileKotlin(scriptCompilationConfiguration: Script
         }
     }
 
-    return try {
-        compiledScriptResult.valueOrThrow()
+    try {
+        return Pair(compiledScriptResult.valueOrThrow(), report)
     } catch (e: Exception) {
         throw NetKernelKotlinScriptCompileException(report)
     }
@@ -49,6 +49,6 @@ abstract class BaseKotlinScriptTransreptor<T: BaseScriptRepresentation>: KotlinT
     protected fun TransreptorRequestContext<T>.performCompilation(scriptCompilationConfiguration: ScriptCompilationConfiguration): CompiledScript<*> {
         val script = sourcePrimary<String>()
 
-        return compileKotlin(scriptCompilationConfiguration, script)
+        return compileKotlin(scriptCompilationConfiguration, script).first
     }
 }

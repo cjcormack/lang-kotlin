@@ -11,8 +11,8 @@ class ScriptCompileAccessor: BaseScriptAccessor() {
         val script = source<String>("arg:operator")
 
         val kotlinScriptConfig = loadKotlinScriptConfig()
-        compileKotlin(kotlinScriptConfig.scriptConfiguration, script)
+        val (_, report) = compileKotlin(kotlinScriptConfig.scriptConfiguration, script)
 
-        response(true)
+        response(NetKernelKotlinScriptCompilationResult(report))
     }
 }
