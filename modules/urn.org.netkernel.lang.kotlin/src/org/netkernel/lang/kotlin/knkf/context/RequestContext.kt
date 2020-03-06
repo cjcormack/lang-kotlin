@@ -34,6 +34,20 @@ abstract class RequestContext(override val nkfContext: INKFRequestContext): Base
     }
 
     /**
+     * Issue a DELETE request asynchronously
+     */
+    fun deleteAsync(identifier: Identifier, init: DeleteRequest.() -> Unit = {}) {
+        deleteRequest(identifier, init).issueAsync()
+    }
+
+    /**
+     * Issue a DELETE request asynchronously
+     */
+    fun deleteAsync(identifier: String, init: DeleteRequest.() -> Unit = {}) {
+        deleteAsync(Identifier(identifier), init)
+    }
+
+    /**
      * Create a new DELETE request.
      */
     fun deleteRequest(identifier: Identifier, init: DeleteRequest.() -> Unit = {}): DeleteRequest {
@@ -78,6 +92,20 @@ abstract class RequestContext(override val nkfContext: INKFRequestContext): Base
      */
     fun exists(identifier: String, init: ExistsRequest.() -> Unit = {}): Boolean {
         return exists(Identifier(identifier), init)
+    }
+
+    /**
+     * Issue an EXISTS request asynchronously
+     */
+    fun existsAsync(identifier: Identifier, init: ExistsRequest.() -> Unit = {}) {
+        existsRequest(identifier, init).issueAsync()
+    }
+
+    /**
+     * Issue an EXISTS request asynchronously
+     */
+    fun existsAsync(identifier: String, init: ExistsRequest.() -> Unit = {}) {
+        return existsAsync(Identifier(identifier), init)
     }
 
     /**
@@ -135,6 +163,20 @@ abstract class RequestContext(override val nkfContext: INKFRequestContext): Base
     }
 
     /**
+     * Issue an NEW request asynchronously
+     */
+    fun newAsync(identifier: Identifier, init: NewRequest<Any>.() -> Unit = {}) {
+        newRequest(identifier, Any::class.java, init).issueAsync()
+    }
+
+    /**
+     * Issue an NEW request asynchronously
+     */
+    fun newAsync(identifier: String, init: NewRequest<Any>.() -> Unit = {}) {
+        return newAsync(Identifier(identifier), init)
+    }
+
+    /**
      * Create a NEW request.
      */
     inline fun <reified P> newRequest(identifier: Identifier, noinline init: NewRequest<P>.() -> Unit = {}): NewRequest<P> {
@@ -174,6 +216,20 @@ abstract class RequestContext(override val nkfContext: INKFRequestContext): Base
      */
     inline fun <reified P> sink(identifier: String, noinline init: SinkRequest<P>.() -> Unit = {}) {
         return sink(Identifier(identifier), P::class.java, init)
+    }
+
+    /**
+     * Issue an SINK request asynchronously
+     */
+    fun sinkAsync(identifier: Identifier, init: SinkRequest<Any>.() -> Unit = {}) {
+        sinkRequest(identifier, Any::class.java, init).issueAsync()
+    }
+
+    /**
+     * Issue an SINK request asynchronously
+     */
+    fun sinkAsync(identifier: String, init: SinkRequest<Any>.() -> Unit = {}) {
+        return sinkAsync(Identifier(identifier), init)
     }
 
     /**
@@ -230,6 +286,20 @@ abstract class RequestContext(override val nkfContext: INKFRequestContext): Base
      */
     inline fun <reified R> source(identifier: String, noinline init: SourceRequest<R>.() -> Unit = {}): R {
         return source(Identifier(identifier), R::class.java, init)
+    }
+
+    /**
+     * Issue an SOURCE request asynchronously
+     */
+    fun sourceAsync(identifier: Identifier, init: SourceRequest<Any>.() -> Unit = {}) {
+        sourceRequest(identifier, Any::class.java, init).issueAsync()
+    }
+
+    /**
+     * Issue an SOURCE request asynchronously
+     */
+    fun sourceAsync(identifier: String, init: SourceRequest<Any>.() -> Unit = {}) {
+        return sourceAsync(Identifier(identifier), init)
     }
 
     /**

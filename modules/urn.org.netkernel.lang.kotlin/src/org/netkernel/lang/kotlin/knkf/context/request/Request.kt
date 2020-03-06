@@ -87,6 +87,13 @@ abstract class Request<R> internal constructor(val context: RequestContext, val 
         return response as R
     }
 
+    /**
+     * Issue this request, and return the response.
+     */
+    fun issueAsync() {
+        context.nkfContext.issueAsyncRequest(nkfRequest)
+    }
+
     fun issueForResponse(): ReadOnlyResponse<R> {
         val response = context.nkfContext.issueRequestForResponse(nkfRequest)
 
