@@ -17,7 +17,7 @@ buildscript {
         mavenCentral()
         gradlePluginPortal()
         maven {
-            url "http://maven.netkernel.org/netkernel-maven"
+            url "https://maven.netkernel.org/netkernel-maven"
         }
     }
 
