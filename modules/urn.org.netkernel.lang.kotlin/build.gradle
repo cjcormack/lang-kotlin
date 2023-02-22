@@ -51,3 +51,7 @@ compileKotlin {
         freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
     }
 }
+
+// Pin target JVM to Java 11
+sourceCompatibility = 11
+targetCompatibility = 11
