@@ -49,6 +49,7 @@
 				<active>
 					<identifier>active:kotlinScriptCompile</identifier>
 					<argument name="operator" desc="Kotlin Script to compile"/>
+					<argument name="dependency" desc="Dependent Kotlin Scripts" min="0" max="*"/>
 					<argument name="scriptRuntimeSettings" min="0" max="1" desc="Optional configuration for the runtime">
 						<representation>org.netkernel.lang.kotlin.script.NetKernelScriptRuntimeSettings</representation>
 					</argument>

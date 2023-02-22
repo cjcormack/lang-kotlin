@@ -1,7 +1,7 @@
 buildscript {
     ext {
         versions = [
-            "kotlin": '1.6.10'
+            "kotlin": '1.8.10'
         ]
     }
 
@@ -21,7 +21,7 @@ buildscript {
 }
 
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.6.10'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.10'
     id 'idea'
 }
 

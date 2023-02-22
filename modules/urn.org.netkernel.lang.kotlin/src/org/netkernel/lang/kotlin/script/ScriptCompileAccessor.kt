@@ -10,6 +10,8 @@ class ScriptCompileAccessor: BaseScriptAccessor() {
 
         val script = source<String>("arg:operator")
 
+        this.nkfContext.getParamValues("dependencies")
+
         val kotlinScriptConfig = loadKotlinScriptConfig()
         val (_, report) = compileKotlin(kotlinScriptConfig.scriptConfiguration, script)
 

@@ -5,19 +5,19 @@ import org.netkernel.lang.kotlin.knkf.context.RequestContext
 import org.netkernel.lang.kotlin.knkf.context.TransreptorRequestContext
 import org.netkernel.lang.kotlin.knkf.context.sourcePrimary
 import org.netkernel.lang.kotlin.knkf.endpoints.KotlinTransreptor
-import kotlin.script.experimental.api.CompiledScript
-import kotlin.script.experimental.api.ScriptCompilationConfiguration
-import kotlin.script.experimental.api.ScriptDiagnostic
-import kotlin.script.experimental.api.valueOrThrow
+import kotlin.script.experimental.api.*
 import kotlin.script.experimental.host.toScriptSource
 import kotlin.script.experimental.jvm.dependenciesFromClassloader
 import kotlin.script.experimental.jvm.jvm
 import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost
 
-internal fun RequestContext.compileKotlin(scriptCompilationConfiguration: ScriptCompilationConfiguration, script: String): Pair<CompiledScript, List<ScriptDiagnostic>> {
+internal fun RequestContext.compileKotlin(scriptCompilationConfiguration: ScriptCompilationConfiguration, script: String, importedScripts: List<String> = emptyList()): Pair<CompiledScript, List<ScriptDiagnostic>> {
     val compilationConfiguration = ScriptCompilationConfiguration(listOf(scriptCompilationConfiguration)) {
         jvm {
             dependenciesFromClassloader(classLoader = nkfContext.getKotlinCompilerClassLoader(), wholeClasspath = true)
+            importedScripts.forEach {
+                importScripts.append(it.toScriptSource())
+            }
         }
     }
 
@@ -45,6 +45,8 @@ abstract class BaseKotlinScriptTransreptor<T: BaseScriptRepresentation>: KotlinT
     init {
         this.declareThreadSafe()
     }
+
+    // TODO handle compilation with dependent scripts by supporting a primary type of IHDSDocument
 
     protected fun TransreptorRequestContext<T>.performCompilation(scriptCompilationConfiguration: ScriptCompilationConfiguration): CompiledScript {
         val script = sourcePrimary<String>()
